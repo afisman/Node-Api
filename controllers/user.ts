@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createUser, deleteUser, editUser, fetchAllUsers, fetchSingleUser } from '../services/user';
+import { authenticateToken } from '../middleware/auth';
 
 export const userController = express.Router();
 
@@ -11,6 +12,8 @@ userController.get("/:id", async (req: Request, res: Response, _next: NextFuncti
     const { id } = req.params;
     res.json(fetchSingleUser(Number(id)));
 })
+
+userController.use(authenticateToken);
 
 userController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
     res.json(createUser(req.body));

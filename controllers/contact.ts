@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createContact, deleteContact, editContact, fetchAllContacts, fetchSingleContact } from '../services/contact';
+import { authenticateToken } from '../middleware/auth';
 
 export const contactController = express.Router();
 
@@ -11,6 +12,8 @@ contactController.get("/:id", async (req: Request, res: Response, _next: NextFun
     const { id } = req.params;
     res.json(fetchSingleContact(Number(id)));
 })
+
+contactController.use(authenticateToken);
 
 contactController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
     res.json(createContact(req.body));

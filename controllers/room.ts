@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createRoom, deleteRoom, editRoom, fetchAllRooms, fetchSingleRoom } from '../services/room';
+import { authenticateToken } from '../middleware/auth';
 
 export const roomController = express.Router();
 
@@ -11,6 +12,8 @@ roomController.get("/:id", async (req: Request, res: Response, _next: NextFuncti
     const { id } = req.params;
     res.json(fetchSingleRoom(Number(id)));
 })
+
+roomController.use(authenticateToken);
 
 roomController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
     res.json(createRoom(req.body));

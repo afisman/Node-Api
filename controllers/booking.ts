@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createBooking, deleteBooking, editBooking, fetchAllBookings, fetchSingleBooking } from '../services/booking';
+import { authenticateToken } from '../middleware/auth';
 
 
 export const bookingController = express.Router();
@@ -12,6 +13,8 @@ bookingController.get("/:id", async (req: Request, res: Response, _next: NextFun
     const { id } = req.params;
     res.json(fetchSingleBooking(Number(id)));
 })
+
+bookingController.use(authenticateToken);
 
 bookingController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
     res.json(createBooking(req.body));
