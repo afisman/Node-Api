@@ -29,5 +29,5 @@ export const authenticateToken = (req: AuthRequest, res: Response, next: NextFun
 }
 
 export const generateAccessToken = (username: string) => {
-    return jwt.sign({ username: username }, privateKey, { expiresIn: 86400 });
+    return jwt.sign({ username: username }, privateKey, { expiresIn: 8640000 });
 }

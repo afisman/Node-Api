@@ -7,6 +7,7 @@ import { loginController } from './controllers/login';
 import { pageController } from './controllers/page';
 
 
+
 export const app: Express = express();
 
 app.use(express.json());
@@ -19,4 +20,8 @@ app.use('/users', userController);
 app.use('/contact', contactController);
 
 app.use("/", pageController);
+
+
+
+
 
