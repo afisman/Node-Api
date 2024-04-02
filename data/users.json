@@ -8,7 +8,8 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Active",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     },
     {
         "id": 2,
@@ -19,7 +20,8 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Active",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     },
     {
         "id": 3,
@@ -30,7 +32,8 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Active",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     },
     {
         "id": 4,
@@ -41,7 +44,8 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Inactive",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     },
     {
         "id": 5,
@@ -52,7 +56,8 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Active",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     },
     {
         "id": 6,
@@ -63,7 +68,8 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Inactive",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     },
     {
         "id": 7,
@@ -74,7 +80,8 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Active",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     },
     {
         "id": 8,
@@ -85,7 +92,8 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Inactive",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     },
     {
         "id": 9,
@@ -96,7 +104,8 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Active",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     },
     {
         "id": 10,
@@ -107,7 +116,8 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Inactive",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     },
     {
         "id": 11,
@@ -118,7 +128,8 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Active",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     },
     {
         "id": 12,
@@ -129,6 +140,7 @@
         "start_date": "2022-02-10",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "status": "Active",
-        "position": "Manager"
+        "position": "Manager",
+        "password": "12345"
     }
 ]

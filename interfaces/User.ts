@@ -7,5 +7,6 @@ export interface User {
     start_date: string
     description: string
     status: string
-    position: string
+    position: string,
+    password: string
 }
