@@ -5,7 +5,7 @@ import { generateAccessToken } from '../middleware/auth';
 export const loginController = express.Router();
 
 loginController.get("/", async (_req: Request, res: Response) => {
-    const authToken = generateAccessToken('Aleftau')
+    const authToken = generateAccessToken('Aleftau');
     res.json(authToken);
 })
 

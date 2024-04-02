@@ -28,11 +28,9 @@ export const createBooking = (data: Booking): string => {
 
 export const editBooking = (id: number, data: Booking): string => {
     const bookingExists = bookingData.findIndex(booking => booking.id === id);
-    console.log(data, id)
     if (data !== undefined && bookingExists !== -1) {
-        bookingData[bookingExists] = { ...bookingData[bookingExists], ...data }
+        bookingData[bookingExists] = { ...bookingData[bookingExists], ...data };
         writeJson(bookingFile, bookingData);
-        console.log(bookingData)
         return "Booking edited correctly";
     }
 
@@ -42,7 +40,7 @@ export const editBooking = (id: number, data: Booking): string => {
 export const deleteBooking = (id: number): string => {
     const bookingExists = bookingData.findIndex(booking => booking.id === id);
     if (bookingExists !== -1) {
-        const newBookingData = deleteOcurrence(bookingData, bookingData[bookingExists].id)
+        const newBookingData = deleteOcurrence(bookingData, bookingData[bookingExists].id);
         writeJson(bookingFile, newBookingData);
         return "Booking deleted correctly";
     }

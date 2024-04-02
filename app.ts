@@ -4,7 +4,7 @@ import { roomController } from './controllers/room';
 import { userController } from './controllers/user';
 import { contactController } from './controllers/contact';
 import { loginController } from './controllers/login';
-
+import { pageController } from './controllers/page';
 
 
 export const app: Express = express();
@@ -17,4 +17,6 @@ app.use('/bookings', bookingController);
 app.use('/rooms', roomController);
 app.use('/users', userController);
 app.use('/contact', contactController);
+
+app.use("/", pageController);
 

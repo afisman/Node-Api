@@ -8,7 +8,7 @@ roomController.get("/", async (_req: Request, res: Response) => {
     try {
         res.json(fetchAllRooms());
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 })
 
@@ -25,7 +25,7 @@ roomController.post("/create", authenticateToken, async (req: Request, res: Resp
     try {
         res.json(createRoom(req.body));
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 })
 
@@ -34,7 +34,7 @@ roomController.put("/edit/:id", authenticateToken, async (req: Request, res: Res
     try {
         res.json(editRoom(Number(id), req.body));
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 })
 

@@ -22,7 +22,6 @@ userController.get("/:id", async (req: Request, res: Response, _next: NextFuncti
 })
 
 
-
 userController.post("/create", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     try {
         res.json(createUser(req.body));
