@@ -1,4 +1,4 @@
-export interface UserInterface {
+export interface User {
     id: number
     full_name: string
     contact: string

@@ -1,19 +1,19 @@
 import { readJson, writeJson } from '../helpers/dataJson';
 import { bookingFile } from '../helpers/fileNames';
-import { BookingInterface } from '../interfaces/Booking';
+import { Booking } from '../interfaces/Booking';
 
-const bookingData = readJson(bookingFile) as BookingInterface[];
+const bookingData = readJson(bookingFile) as Booking[];
 
-export const fetchAllBookings = (): BookingInterface[] => {
+export const fetchAllBookings = (): Booking[] => {
     return bookingData;
 }
 
-export const fetchSingleBooking = (id: number): BookingInterface => {
-    const booking = bookingData.find(booking => booking.id === id) || {} as BookingInterface;
+export const fetchSingleBooking = (id: number): Booking => {
+    const booking = bookingData.find(booking => booking.id === id) || {} as Booking;
     return booking;
 }
 
-export const createBooking = (data: BookingInterface): string => {
+export const createBooking = (data: Booking): string => {
     const bookingExists = bookingData.findIndex(booking => booking.id === data.id);
     if (data !== undefined && bookingExists === -1) {
         bookingData.push(data);
@@ -24,7 +24,7 @@ export const createBooking = (data: BookingInterface): string => {
     return "Error creating booking";
 }
 
-export const editBooking = (id: number, data: BookingInterface): string => {
+export const editBooking = (id: number, data: Booking): string => {
     const bookingExists = bookingData.findIndex(booking => booking.id === id);
     if (data !== undefined && bookingExists === -1) {
         bookingData.splice(bookingExists, 1, data);

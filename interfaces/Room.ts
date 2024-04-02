@@ -1,4 +1,4 @@
-export interface RoomInterface {
+export interface Room {
     id: number
     photos: string[]
     room_type: string
