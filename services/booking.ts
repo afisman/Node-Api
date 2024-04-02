@@ -1,6 +1,8 @@
 import { readJson, writeJson } from '../util/dataJson';
 import { bookingFile } from '../util/fileNames';
 import { Booking } from '../interfaces/Booking';
+import { deleteOcurrence } from '../util/deleteOcurrence';
+
 
 const bookingData = readJson(bookingFile) as Booking[];
 
@@ -26,9 +28,11 @@ export const createBooking = (data: Booking): string => {
 
 export const editBooking = (id: number, data: Booking): string => {
     const bookingExists = bookingData.findIndex(booking => booking.id === id);
-    if (data !== undefined && bookingExists === -1) {
-        bookingData.splice(bookingExists, 1, data);
+    console.log(data, id)
+    if (data !== undefined && bookingExists !== -1) {
+        bookingData[bookingExists] = { ...bookingData[bookingExists], ...data }
         writeJson(bookingFile, bookingData);
+        console.log(bookingData)
         return "Booking edited correctly";
     }
 
@@ -37,9 +41,9 @@ export const editBooking = (id: number, data: Booking): string => {
 
 export const deleteBooking = (id: number): string => {
     const bookingExists = bookingData.findIndex(booking => booking.id === id);
-    if (bookingExists === -1) {
-        bookingData.splice(bookingExists, 1);
-        writeJson(bookingFile, bookingData);
+    if (bookingExists !== -1) {
+        const newBookingData = deleteOcurrence(bookingData, bookingData[bookingExists].id)
+        writeJson(bookingFile, newBookingData);
         return "Booking deleted correctly";
     }
 

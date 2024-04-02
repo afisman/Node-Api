@@ -1,6 +1,7 @@
 import { readJson, writeJson } from '../util/dataJson';
 import { roomFile } from '../util/fileNames';
 import { Room } from '../interfaces/Room';
+import { deleteOcurrence } from '../util/deleteOcurrence';
 
 const roomData = readJson(roomFile) as Room[];
 
@@ -26,8 +27,8 @@ export const createRoom = (data: Room): string => {
 
 export const editRoom = (id: number, data: Room): string => {
     const roomExists = roomData.findIndex(room => room.id === id);
-    if (data !== undefined && roomExists === -1) {
-        roomData.splice(roomExists, 1, data);
+    if (data !== undefined && roomExists !== -1) {
+        roomData[roomExists] = { ...roomData[roomExists], ...data };
         writeJson(roomFile, roomData);
         return "Room edited correctly";
     }
@@ -37,11 +38,12 @@ export const editRoom = (id: number, data: Room): string => {
 
 export const deleteRoom = (id: number): string => {
     const roomExists = roomData.findIndex(room => room.id === id);
-    if (roomExists === -1) {
-        roomData.splice(roomExists, 1);
-        writeJson(roomFile, roomData);
+    if (roomExists !== -1) {
+        const newRoomdata = deleteOcurrence(roomData, roomData[roomExists].id)
+        writeJson(roomFile, newRoomdata);
         return "Room deleted correctly";
     }
 
     return "Error deleted room";
 }
+

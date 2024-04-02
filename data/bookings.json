@@ -81,13 +81,13 @@
     },
     {
         "id": 6,
-        "name": "John Clark",
+        "name": "Led zeppelin",
         "hour_check_in": "12:00",
-        "order_date": "2023-12-30T15:20:32Z",
-        "check_in": "2024-01-05T09:46:16Z",
-        "check_out": "2025-01-09T08:25:53Z",
+        "order_date": "2024-01-04",
+        "check_in": "2024-03-25",
+        "check_out": "2024-04-01",
         "hour_check_out": "13:30:00",
-        "room_type": "Deluxe -002424",
+        "room_type": "Double",
         "rate": "$150",
         "special_request": "John Clark has asked for a room overlooking the ocean for his reservation",
         "room": {

@@ -1,6 +1,7 @@
 import { readJson, writeJson } from '../util/dataJson';
 import { contactFile } from '../util/fileNames';
 import { Contact } from '../interfaces/Contact';
+import { deleteOcurrence } from '../util/deleteOcurrence';
 
 const contactData = readJson(contactFile) as Contact[];
 
@@ -26,8 +27,8 @@ export const createContact = (data: Contact): string => {
 
 export const editContact = (id: number, data: Contact): string => {
     const contactExists = contactData.findIndex(contact => contact.id === id);
-    if (data !== undefined && contactExists === -1) {
-        contactData.splice(contactExists, 1, data);
+    if (data !== undefined && contactExists !== -1) {
+        contactData[contactExists] = { ...contactData[contactExists], ...data };
         writeJson(contactFile, contactData);
         return "Contact edited correctly";
     }
@@ -37,11 +38,12 @@ export const editContact = (id: number, data: Contact): string => {
 
 export const deleteContact = (id: number): string => {
     const contactExists = contactData.findIndex(contact => contact.id === id);
-    if (contactExists === -1) {
-        contactData.splice(contactExists, 1);
-        writeJson(contactFile, contactData);
+    if (contactExists !== -1) {
+        const newContactData = deleteOcurrence(contactData, contactData[contactExists].id);
+        writeJson(contactFile, newContactData);
         return "Contact deleted correctly";
     }
 
     return "Error deleted contact";
 }
+

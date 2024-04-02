@@ -32,11 +32,8 @@ bookingController.post("/create", authenticateToken, async (req: Request, res: R
 
 bookingController.put("/edit/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    try {
-        res.json(editBooking(Number(id), req.body));
-    } catch (error) {
-        console.log(error)
-    }
+    res.json(editBooking(Number(id), req.body));
+
 })
 
 bookingController.delete("/delete/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {

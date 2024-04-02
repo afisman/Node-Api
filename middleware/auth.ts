@@ -18,6 +18,7 @@ export const authenticateToken = (req: AuthRequest, res: Response, next: NextFun
     if (token == null) return res.sendStatus(401)
 
     jwt.verify(token, process.env.TOKEN_SECRET as string, (err: any, user: any) => {
+        console.log(token)
         console.log(err)
 
         if (err) return res.sendStatus(403)
@@ -29,5 +30,5 @@ export const authenticateToken = (req: AuthRequest, res: Response, next: NextFun
 }
 
 export const generateAccessToken = (username: string) => {
-    return jwt.sign(username, privateKey, { expiresIn: '10y' });
+    return jwt.sign({ username: username }, privateKey, { expiresIn: 6400 });
 }
