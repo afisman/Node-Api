@@ -1,5 +1,5 @@
-import { readJson, writeJson } from '../helpers/dataJson';
-import { bookingFile } from '../helpers/fileNames';
+import { readJson, writeJson } from '../util/dataJson';
+import { bookingFile } from '../util/fileNames';
 import { Booking } from '../interfaces/Booking';
 
 const bookingData = readJson(bookingFile) as Booking[];

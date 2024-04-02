@@ -5,26 +5,46 @@ import { authenticateToken } from '../middleware/auth';
 export const userController = express.Router();
 
 userController.get("/", async (_req: Request, res: Response) => {
-    res.json(fetchAllUsers());
+    try {
+        res.json(fetchAllUsers());
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 userController.get("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(fetchSingleUser(Number(id)));
+    try {
+        res.json(fetchSingleUser(Number(id)));
+    } catch (error) {
+        console.log(error);
+    }
 })
 
-userController.use(authenticateToken);
 
-userController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
-    res.json(createUser(req.body));
+
+userController.post("/create", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
+    try {
+        res.json(createUser(req.body));
+    } catch (error) {
+        console.log(error);
+    }
 })
 
-userController.put("/edit/:id", async (req: Request, res: Response, _next: NextFunction) => {
+userController.put("/edit/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(editUser(Number(id), req.body));
+    try {
+        res.json(editUser(Number(id), req.body));
+    } catch (error) {
+        console.log(error);
+    }
 })
 
-userController.delete("/delete/:id", async (req: Request, res: Response, _next: NextFunction) => {
+userController.delete("/delete/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(deleteUser(Number(id)));
+    try {
+        res.json(deleteUser(Number(id)));
+    } catch (error) {
+        console.log(error);
+    }
 })

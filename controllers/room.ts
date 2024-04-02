@@ -5,26 +5,44 @@ import { authenticateToken } from '../middleware/auth';
 export const roomController = express.Router();
 
 roomController.get("/", async (_req: Request, res: Response) => {
-    res.json(fetchAllRooms());
+    try {
+        res.json(fetchAllRooms());
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 roomController.get("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(fetchSingleRoom(Number(id)));
+    try {
+        res.json(fetchSingleRoom(Number(id)));
+    } catch (error) {
+        console.log(error)
+    }
 })
 
-roomController.use(authenticateToken);
-
-roomController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
-    res.json(createRoom(req.body));
+roomController.post("/create", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
+    try {
+        res.json(createRoom(req.body));
+    } catch (error) {
+        console.log(error)
+    }
 })
 
-roomController.put("/edit/:id", async (req: Request, res: Response, _next: NextFunction) => {
+roomController.put("/edit/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(editRoom(Number(id), req.body));
+    try {
+        res.json(editRoom(Number(id), req.body));
+    } catch (error) {
+        console.log(error)
+    }
 })
 
-roomController.delete("/delete/:id", async (req: Request, res: Response, _next: NextFunction) => {
+roomController.delete("/delete/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(deleteRoom(Number(id)));
+    try {
+        res.json(deleteRoom(Number(id)));
+    } catch (error) {
+        console.log(error)
+    }
 })

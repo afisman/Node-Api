@@ -1,5 +1,5 @@
-import { readJson, writeJson } from '../helpers/dataJson';
-import { contactFile } from '../helpers/fileNames';
+import { readJson, writeJson } from '../util/dataJson';
+import { contactFile } from '../util/fileNames';
 import { Contact } from '../interfaces/Contact';
 
 const contactData = readJson(contactFile) as Contact[];

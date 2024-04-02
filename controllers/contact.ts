@@ -5,26 +5,44 @@ import { authenticateToken } from '../middleware/auth';
 export const contactController = express.Router();
 
 contactController.get("/", async (_req: Request, res: Response) => {
-    res.json(fetchAllContacts());
+    try {
+        res.json(fetchAllContacts());
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 contactController.get("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(fetchSingleContact(Number(id)));
+    try {
+        res.json(fetchSingleContact(Number(id)));
+    } catch (error) {
+        console.log(error)
+    }
 })
 
-contactController.use(authenticateToken);
-
-contactController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
-    res.json(createContact(req.body));
+contactController.post("/create", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
+    try {
+        res.json(createContact(req.body));
+    } catch (error) {
+        console.log(error)
+    }
 })
 
-contactController.put("/edit/:id", async (req: Request, res: Response, _next: NextFunction) => {
+contactController.put("/edit/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(editContact(Number(id), req.body));
+    try {
+        res.json(editContact(Number(id), req.body));
+    } catch (error) {
+        console.log(error)
+    }
 })
 
-contactController.delete("/delete/:id", async (req: Request, res: Response, _next: NextFunction) => {
+contactController.delete("/delete/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(deleteContact(Number(id)));
+    try {
+        res.json(deleteContact(Number(id)));
+    } catch (error) {
+        console.log(error)
+    }
 })

@@ -1,5 +1,5 @@
-import { readJson, writeJson } from '../helpers/dataJson';
-import { roomFile } from '../helpers/fileNames';
+import { readJson, writeJson } from '../util/dataJson';
+import { roomFile } from '../util/fileNames';
 import { Room } from '../interfaces/Room';
 
 const roomData = readJson(roomFile) as Room[];

@@ -1,5 +1,5 @@
-import { readJson, writeJson } from '../helpers/dataJson';
-import { userfile } from '../helpers/fileNames';
+import { readJson, writeJson } from '../util/dataJson';
+import { userfile } from '../util/fileNames';
 import { User } from '../interfaces/User';
 
 const userData = readJson(userfile) as User[];

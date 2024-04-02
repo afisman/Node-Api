@@ -2,30 +2,48 @@ import express, { NextFunction, Request, Response } from 'express';
 import { createBooking, deleteBooking, editBooking, fetchAllBookings, fetchSingleBooking } from '../services/booking';
 import { authenticateToken } from '../middleware/auth';
 
-
 export const bookingController = express.Router();
 
 bookingController.get("/", async (_req: Request, res: Response) => {
-    res.json(fetchAllBookings());
+    try {
+        res.json(fetchAllBookings());
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 bookingController.get("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(fetchSingleBooking(Number(id)));
+    try {
+        res.json(fetchSingleBooking(Number(id)));
+    } catch (error) {
+        console.log(error)
+    }
 })
 
-bookingController.use(authenticateToken);
+bookingController.post("/create", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
 
-bookingController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
-    res.json(createBooking(req.body));
+    try {
+        res.json(createBooking(req.body));
+    } catch (error) {
+        console.log(error)
+    }
 })
 
-bookingController.put("/edit/:id", async (req: Request, res: Response, _next: NextFunction) => {
+bookingController.put("/edit/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(editBooking(Number(id), req.body));
+    try {
+        res.json(editBooking(Number(id), req.body));
+    } catch (error) {
+        console.log(error)
+    }
 })
 
-bookingController.delete("/delete/:id", async (req: Request, res: Response, _next: NextFunction) => {
+bookingController.delete("/delete/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
-    res.json(deleteBooking(Number(id)));
+    try {
+        res.json(deleteBooking(Number(id)));
+    } catch (error) {
+        console.log(error)
+    }
 })
