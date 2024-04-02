@@ -8,3 +8,8 @@ export const readJson = (file: string): BookingInterface[] | RoomInterface[] | C
     const data = fs.readFileSync(file).toString();
     return JSON.parse(data)
 }
+
+export const writeJson = (file: string, data: BookingInterface[] | RoomInterface[] | ContactInterface[] | UserInterface[]): void => {
+    const writeText = JSON.stringify(data);
+    fs.writeFileSync(file, writeText);
+}
