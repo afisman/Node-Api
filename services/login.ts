@@ -1,17 +1,10 @@
-import { readJson } from "../util/dataJson";
-import { userfile } from "../util/fileNames";
-import { User } from "../interfaces/User";
-
-const userData = readJson(userfile) as User[];
-
+const testUser = { username: 'afisman', password: '12345' };
 
 export const login = async (userLogin: any): Promise<boolean> => {
 
-    const userExists = userData.findIndex(user => user.email === userLogin.email);
-    if (userData[userExists].password === userLogin.password) {
+    const { username = testUser.username, password = testUser.password } = userLogin
+    if (username === 'afisman' && password === '12345') {
         return true
     }
     return false
-
-
 }

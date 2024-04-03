@@ -1,7 +1,6 @@
 import { readJson, writeJson } from '../util/dataJson';
 import { userfile } from '../util/fileNames';
 import { User } from '../interfaces/User';
-import { deleteOcurrence } from '../util/deleteOcurrence';
 
 const userData = readJson(userfile) as User[];
 
@@ -39,8 +38,8 @@ export const editUser = (id: number, data: User): string => {
 export const deleteUser = (id: number): string => {
     const userExists = userData.findIndex(user => user.id === id);
     if (userExists !== -1) {
-        const newUserData = deleteOcurrence(userData, userData[userExists].id);
-        writeJson(userfile, newUserData);
+        userData.splice(userExists, 1);
+        writeJson(userfile, userData);
         return "User deleted correctly";
     }
 

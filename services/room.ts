@@ -1,7 +1,6 @@
 import { readJson, writeJson } from '../util/dataJson';
 import { roomFile } from '../util/fileNames';
 import { Room } from '../interfaces/Room';
-import { deleteOcurrence } from '../util/deleteOcurrence';
 
 const roomData = readJson(roomFile) as Room[];
 
@@ -39,8 +38,8 @@ export const editRoom = (id: number, data: Room): string => {
 export const deleteRoom = (id: number): string => {
     const roomExists = roomData.findIndex(room => room.id === id);
     if (roomExists !== -1) {
-        const newRoomdata = deleteOcurrence(roomData, roomData[roomExists].id)
-        writeJson(roomFile, newRoomdata);
+        roomData.splice(roomExists, 1);
+        writeJson(roomFile, roomData);
         return "Room deleted correctly";
     }
 
