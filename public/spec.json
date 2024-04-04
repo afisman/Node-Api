@@ -1,0 +1,418 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Api for Miranda Dashboard project",
+        "version": "1.0.7",
+        "title": "API miranda",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "afisman@gmail.com"
+        }
+    },
+    "host": "https://vevpsavqpa.execute-api.eu-west-3.amazonaws.com/dev/",
+    "basePath": "/v2",
+    "tags": [
+        {
+            "name": "bookings",
+            "description": "Bookings informaction"
+        },
+        {
+            "name": "rooms",
+            "description": "Rooms information"
+        },
+        {
+            "name": "users",
+            "description": "Users information"
+        },
+        {
+            "name": "messages",
+            "description": "Message information"
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "paths": {
+        "/bookings": {
+            "get": {
+                "tags": [
+                    "bookings"
+                ],
+                "summary": "Get All bookings",
+                "description": "Get All bookings",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Bookings"
+                        }
+                    },
+                    "404": {
+                        "description": "Bookings not found"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            }
+        },
+        "/bookings/{id}": {
+            "get": {
+                "tags": [
+                    "bookings"
+                ],
+                "summary": "Get booking by id",
+                "description": "Get booking by id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Booking ID",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Bookings"
+                        }
+                    },
+                    "404": {
+                        "description": "Booking not found"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            }
+        },
+        "/bookings/create": {
+            "post": {
+                "tags": [
+                    "bookings"
+                ],
+                "summary": "Creates new booking",
+                "description": "Creates new booking",
+                "operationId": "createBooking",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Booking object to be added",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Bookings"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Booking created succesfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Bookings"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            }
+        },
+        "/bookings/edit/{id}": {
+            "put": {
+                "tags": [
+                    "bookings"
+                ],
+                "summary": "Edits booking",
+                "description": "Edits booking",
+                "operationId": "editBooking",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Booking object to be edited",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Bookings"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Booking created succesfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Bookings"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            }
+        },
+        "/bookings/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "bookings"
+                ],
+                "summary": "Deletes a booking",
+                "description": "Deletes a booking",
+                "operationId": "deleteBooking",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "bookingId",
+                        "in": "path",
+                        "description": "Booking id to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Booking deleted succesfully"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Room not found"
+                    }
+                }
+            }
+        },
+        "/rooms": {
+            "get": {
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Get all rooms ",
+                "description": "Get all rooms",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Rooms"
+                        }
+                    },
+                    "404": {
+                        "description": "Rooms not found"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            }
+        },
+        "/rooms/{id}": {
+            "get": {
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Get room by id",
+                "description": "Get room by id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Room ID",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Rooms"
+                        }
+                    },
+                    "404": {
+                        "description": "Room not found"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            }
+        },
+        "/rooms/create": {
+            "post": {
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Creates new room",
+                "description": "Creates new room",
+                "operationId": "createRoom",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Room object to be added",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Rooms"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Room created succesfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Rooms"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            }
+        },
+        "/rooms/edit/{id}": {
+            "put": {
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Edits room",
+                "description": "Edits room",
+                "operationId": "editRoom",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Room object to be edited",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Rooms"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Room edited succesfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Rooms"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            }
+        },
+        "/rooms/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Deletes a room",
+                "description": "Deletes a room",
+                "operationId": "deleteRoom",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "roomId",
+                        "in": "path",
+                        "description": "Room id to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Room deleted succesfully"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Room not found"
+                    }
+                }
+            }
+        }
+    }
+}

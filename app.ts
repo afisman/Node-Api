@@ -9,9 +9,10 @@ import { pageController } from './controllers/page';
 
 
 export const app: Express = express();
-
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 app.use("/login", loginController);
 app.use('/bookings', bookingController);
