@@ -34,31 +34,70 @@ describe('Put Endpoints for bookings', () => {
 })
 
 describe('Put Endpoints for users', () => {
-    it('should try to edit booking with no token', async () => {
+    it('should try to edit user with no token', async () => {
         const res = await request(app)
             .put('/users/edit/12')
             .send({
-                name: 'test is cool',
+                full_name: 'Thomas Muntz',
             })
         expect(res.statusCode).toEqual(401)
     })
-    it('should try to edit booking with malformed token', async () => {
+    it('should try to edit user with malformed token', async () => {
         const res = await request(app)
             .put('/users/edit/12')
             .set({ authorization: malformedJWT })
             .send({
-                name: 'test is cool',
+                full_name: 'Martin luther',
             })
         expect(res.statusCode).toEqual(403)
     })
-    it('should try to edit booking with correct token', async () => {
+    it('should try to edit user with correct token', async () => {
         const res = await request(app)
             .put('/users/edit/12')
             .set({ authorization: authToken })
             .send({
-                name: 'test is cool',
+                full_name: 'Melchior Hoffman',
             })
         expect(res.statusCode).toEqual(200)
     })
 })
+
+describe('Put Endpoints for rooms', () => {
+    it('should try to edit user with no token', async () => {
+        const res = await request(app)
+            .put('/rooms/edit/12')
+            .send({
+                description: 'Best room in hotel',
+            })
+        expect(res.statusCode).toEqual(401)
+    })
+    it('should try to edit user with malformed token', async () => {
+        const res = await request(app)
+            .put('/rooms/edit/12')
+            .set({ authorization: malformedJWT })
+            .send({
+                description: 'Best room in hotel',
+            })
+        expect(res.statusCode).toEqual(403)
+    })
+    it('should try to edit user with correct token', async () => {
+        const res = await request(app)
+            .put('/rooms/edit/12')
+            .set({ authorization: authToken })
+            .send({
+                description: 'Best room in hotel',
+            })
+        expect(res.statusCode).toEqual(200)
+    })
+})
+
+describe('Get contacts endpoints', () => {
+    it('should get contact data and show status 200', async () => {
+        const res = await request(app)
+            .get('/contact')
+        expect(res.statusCode).toEqual(200)
+    })
+})
+
+
 
