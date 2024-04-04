@@ -8,7 +8,8 @@ contactController.get("/", async (_req: Request, res: Response) => {
     try {
         res.json(fetchAllContacts());
     } catch (error) {
-        console.log(error)
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -17,7 +18,8 @@ contactController.get("/:id", async (req: Request, res: Response, _next: NextFun
     try {
         res.json(fetchSingleContact(Number(id)));
     } catch (error) {
-        console.log(error)
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -25,7 +27,8 @@ contactController.post("/create", authenticateToken, async (req: Request, res: R
     try {
         res.json(createContact(req.body));
     } catch (error) {
-        console.log(error)
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -34,7 +37,8 @@ contactController.put("/edit/:id", authenticateToken, async (req: Request, res: 
     try {
         res.json(editContact(Number(id), req.body));
     } catch (error) {
-        console.log(error)
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -43,6 +47,7 @@ contactController.delete("/delete/:id", authenticateToken, async (req: Request, 
     try {
         res.json(deleteContact(Number(id)));
     } catch (error) {
-        console.log(error)
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })

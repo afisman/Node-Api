@@ -8,7 +8,8 @@ userController.get("/", async (_req: Request, res: Response) => {
     try {
         res.json(fetchAllUsers());
     } catch (error) {
-        console.log(error);
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -17,7 +18,8 @@ userController.get("/:id", async (req: Request, res: Response, _next: NextFuncti
     try {
         res.json(fetchSingleUser(Number(id)));
     } catch (error) {
-        console.log(error);
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -26,7 +28,8 @@ userController.post("/create", authenticateToken, async (req: Request, res: Resp
     try {
         res.json(createUser(req.body));
     } catch (error) {
-        console.log(error);
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -35,7 +38,8 @@ userController.put("/edit/:id", authenticateToken, async (req: Request, res: Res
     try {
         res.json(editUser(Number(id), req.body));
     } catch (error) {
-        console.log(error);
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -44,6 +48,7 @@ userController.delete("/delete/:id", authenticateToken, async (req: Request, res
     try {
         res.json(deleteUser(Number(id)));
     } catch (error) {
-        console.log(error);
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })

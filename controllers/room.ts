@@ -8,7 +8,8 @@ roomController.get("/", async (_req: Request, res: Response) => {
     try {
         res.json(fetchAllRooms());
     } catch (error) {
-        console.log(error);
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -17,7 +18,8 @@ roomController.get("/:id", async (req: Request, res: Response, _next: NextFuncti
     try {
         res.json(fetchSingleRoom(Number(id)));
     } catch (error) {
-        console.log(error)
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -25,7 +27,8 @@ roomController.post("/create", authenticateToken, async (req: Request, res: Resp
     try {
         res.json(createRoom(req.body));
     } catch (error) {
-        console.log(error);
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -34,7 +37,8 @@ roomController.put("/edit/:id", authenticateToken, async (req: Request, res: Res
     try {
         res.json(editRoom(Number(id), req.body));
     } catch (error) {
-        console.log(error);
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
 
@@ -43,6 +47,7 @@ roomController.delete("/delete/:id", authenticateToken, async (req: Request, res
     try {
         res.json(deleteRoom(Number(id)));
     } catch (error) {
-        console.log(error)
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 })
