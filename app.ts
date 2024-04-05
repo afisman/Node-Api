@@ -1,4 +1,4 @@
-import express, { Express, Response, Request } from 'express';
+import express, { Express, Response, Request, NextFunction } from 'express';
 import { bookingController } from './controllers/booking';
 import { roomController } from './controllers/room';
 import { userController } from './controllers/user';
@@ -21,6 +21,8 @@ app.use('/users', userController);
 app.use('/contact', contactController);
 
 app.use("/", pageController);
+
+app.use((error: Error, req: Request, res: Response, _next: NextFunction))
 
 
 
