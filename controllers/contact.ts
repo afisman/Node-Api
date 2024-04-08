@@ -6,7 +6,8 @@ export const contactController = express.Router();
 
 contactController.get("/", async (_req: Request, res: Response) => {
     try {
-        res.json(fetchAllContacts());
+        const contacts = await fetchAllContacts()
+        res.json(contacts);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });
@@ -16,7 +17,8 @@ contactController.get("/", async (_req: Request, res: Response) => {
 contactController.get("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        res.json(fetchSingleContact(Number(id)));
+        const singleContact = await fetchSingleContact(id)
+        res.json(singleContact);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });
@@ -25,7 +27,8 @@ contactController.get("/:id", async (req: Request, res: Response, _next: NextFun
 
 contactController.post("/create", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     try {
-        res.json(createContact(req.body));
+        const newContact = await createContact(req.body)
+        res.json(newContact);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });
@@ -35,7 +38,8 @@ contactController.post("/create", authenticateToken, async (req: Request, res: R
 contactController.put("/edit/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        res.json(editContact(Number(id), req.body));
+        const contactToEdit = await editContact(id, req.body)
+        res.json(contactToEdit);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });
@@ -45,7 +49,8 @@ contactController.put("/edit/:id", authenticateToken, async (req: Request, res: 
 contactController.delete("/delete/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        res.json(deleteContact(Number(id)));
+        const contactToDelete = deleteContact(id)
+        res.json(contactToDelete);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });

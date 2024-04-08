@@ -11,7 +11,7 @@ async function seedDB() {
         await Room.collection.drop();
 
         for (let i = 0; i < 15; i++) {
-            const offer = faker.helpers.arrayElement(["YES", "NO"])
+            const offer = faker.helpers.arrayElement(["Yes", "No"])
 
             const document = new Room({
                 photos: [faker.image.urlLoremFlickr({ category: 'hotel,bedroom' }), faker.image.urlLoremFlickr({ category: 'hotel,bedroom' }), faker.image.urlLoremFlickr({ category: 'hotel,bedroom' })],

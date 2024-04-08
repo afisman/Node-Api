@@ -6,7 +6,8 @@ export const userController = express.Router();
 
 userController.get("/", async (_req: Request, res: Response) => {
     try {
-        res.json(fetchAllUsers());
+        const users = await fetchAllUsers()
+        res.json(users);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });
@@ -16,7 +17,8 @@ userController.get("/", async (_req: Request, res: Response) => {
 userController.get("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        res.json(fetchSingleUser(Number(id)));
+        const singleUser = await fetchSingleUser(id)
+        res.json(singleUser);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });
@@ -26,7 +28,8 @@ userController.get("/:id", async (req: Request, res: Response, _next: NextFuncti
 
 userController.post("/create", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     try {
-        res.json(createUser(req.body));
+        const newUser = await createUser(req.body)
+        res.json(newUser);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });
@@ -36,7 +39,8 @@ userController.post("/create", authenticateToken, async (req: Request, res: Resp
 userController.put("/edit/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        res.json(editUser(Number(id), req.body));
+        const userToEdit = await editUser(id, req.body)
+        res.json(userToEdit);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });
@@ -46,7 +50,8 @@ userController.put("/edit/:id", authenticateToken, async (req: Request, res: Res
 userController.delete("/delete/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        res.json(deleteUser(Number(id)));
+        const userToDelete = await deleteUser(id)
+        res.json(userToDelete);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });

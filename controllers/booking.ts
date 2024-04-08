@@ -6,7 +6,8 @@ export const bookingController = express.Router();
 
 bookingController.get("/", async (_req: Request, res: Response) => {
     try {
-        res.json(fetchAllBookings());
+        const bookings = await fetchAllBookings()
+        res.json(bookings);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });
@@ -16,7 +17,8 @@ bookingController.get("/", async (_req: Request, res: Response) => {
 bookingController.get("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        res.json(fetchSingleBooking(Number(id)));
+        const booking = await fetchSingleBooking(id)
+        res.json(booking);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });
@@ -26,7 +28,8 @@ bookingController.get("/:id", async (req: Request, res: Response, _next: NextFun
 bookingController.post("/create", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
 
     try {
-        res.json(createBooking(req.body));
+        const newBooking = await createBooking(req.body)
+        res.json(newBooking);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });
@@ -36,7 +39,8 @@ bookingController.post("/create", authenticateToken, async (req: Request, res: R
 bookingController.put("/edit/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        res.json(editBooking(Number(id), req.body));
+        const bookingToEdit = editBooking(id, req.body)
+        res.json(bookingToEdit);
     } catch (error) {
         console.error()
     }
@@ -46,7 +50,8 @@ bookingController.put("/edit/:id", authenticateToken, async (req: Request, res: 
 bookingController.delete("/delete/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        res.json(deleteBooking(Number(id)));
+        const bookingToDelete = deleteBooking(id)
+        res.json(bookingToDelete);
     } catch (error) {
         console.error('An error ocurred', error);
         res.status(500).json({ error });

@@ -7,7 +7,7 @@ export const fetchAllUsers = async (): Promise<UserInterface[]> => {
     return await User.find();
 }
 
-export const fetchSingleUser = async (id: number): Promise<UserInterface | null> => {
+export const fetchSingleUser = async (id: any): Promise<UserInterface | null> => {
     return await User.findById(id);
 }
 
@@ -20,10 +20,10 @@ export const createUser = async (data: UserInterface): Promise<UserInterface> =>
     return await newUser.save();
 }
 
-export const editUser = async (id: number, data: UserInterface): Promise<UserInterface | null> => {
+export const editUser = async (id: any, data: UserInterface): Promise<UserInterface | null> => {
     return await User.findByIdAndUpdate(id, data, { new: true })
 }
 
-export const deleteUser = async (id: number): Promise<UserInterface | null> => {
+export const deleteUser = async (id: any): Promise<UserInterface | null> => {
     return await User.findByIdAndDelete(id).lean()
 }

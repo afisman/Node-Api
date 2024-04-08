@@ -6,7 +6,7 @@ export const fetchAllContacts = async (): Promise<ContactInterface[]> => {
     return await Contact.find();
 }
 
-export const fetchSingleContact = async (id: number): Promise<ContactInterface | null> => {
+export const fetchSingleContact = async (id: any): Promise<ContactInterface | null> => {
     return Contact.findById(id);
 }
 
@@ -17,11 +17,11 @@ export const createContact = async (data: ContactInterface): Promise<ContactInte
 
 }
 
-export const editContact = async (id: number, data: ContactInterface): Promise<ContactInterface | null> => {
+export const editContact = async (id: any, data: ContactInterface): Promise<ContactInterface | null> => {
     return await Contact.findByIdAndUpdate(id, data, { new: true });
 }
 
-export const deleteContact = async (id: number): Promise<ContactInterface | null> => {
+export const deleteContact = async (id: any): Promise<ContactInterface | null> => {
     return await Contact.findByIdAndDelete(id).lean();
 }
 

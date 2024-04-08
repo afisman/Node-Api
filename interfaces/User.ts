@@ -20,7 +20,7 @@ const userSchema = new Schema<UserInterface>({
     start_date: { type: String },
     description: { type: String },
     status: { type: String },
-    position: { type: String },
+    position: { type: String, enum: ['Manager', 'Reception', 'Room Service'] },
     password: { type: String },
 })
 

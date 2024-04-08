@@ -1,15 +1,3 @@
-export interface UserInterface {
-    full_name: string
-    contact: string
-    email: string
-    photo: string
-    start_date: string
-    description: string
-    status: string
-    position: string,
-    password: string
-}
-
 import mongoose from "mongoose";
 import { faker } from '@faker-js/faker';
 
@@ -17,7 +5,6 @@ import { mongoConnect } from "../mongoConfig";
 import { User } from "../interfaces/User";
 
 const bcrypt = require('bcrypt');
-
 
 async function seedDB() {
     try {
