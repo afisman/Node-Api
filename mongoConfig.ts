@@ -4,18 +4,9 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const MONGODB = process.env.MONGODB_URI || 'mongodb://0.0.0.0:2017/'
+const MONGODB = process.env.MONGODB_URI || 'mongodb://127.0.0.1/miranda-dashboard-DB'
 
 export async function mongoConnect() {
-    console.log('conectando en mongo')
-    // try {
-    //     return await mongoose.connect(MONGODB);
-    // } catch (error) {
-    //     console.error(error);
-    //     setTimeout(mongoConnect, 5000);
-
-    //     return null;
-    // }
 
     mongoose
         .connect(MONGODB)
