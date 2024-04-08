@@ -14,11 +14,10 @@ export const fetchSingleUser = async (id: number): Promise<UserInterface | null>
 export const createUser = async (data: UserInterface): Promise<UserInterface> => {
     const rawPassword = data.password;
     const saltRounds = 10;
-    const hashedPassword = bcrypt.hash(rawPassword, saltRounds);
+    const hashedPassword = await bcrypt.hash(rawPassword, saltRounds);
 
     const newUser = new User({ ...data, password: hashedPassword });
     return await newUser.save();
-
 }
 
 export const editUser = async (id: number, data: UserInterface): Promise<UserInterface | null> => {

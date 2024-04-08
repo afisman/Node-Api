@@ -1,7 +1,6 @@
 import { Schema, model } from "mongoose";
 
 export interface BookingInterface {
-    id: number;
     name: string;
     order_date: string;
     check_in: string;
