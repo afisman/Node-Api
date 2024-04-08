@@ -1,48 +1,28 @@
-import { readJson, writeJson } from '../util/dataJson';
-import { contactFile } from '../util/fileNames';
-import { Contact } from '../interfaces/Contact';
 
-const contactData = readJson(contactFile) as Contact[];
+import { Contact, ContactInterface } from '../interfaces/Contact';
 
-export const fetchAllContacts = (): Contact[] => {
-    return contactData;
+
+export const fetchAllContacts = async (): Promise<ContactInterface[]> => {
+    return await Contact.find();
 }
 
-export const fetchSingleContact = (id: number): Contact => {
-    const singleContact = contactData.find(contact => contact.id === id) || {} as Contact;
-    return singleContact;
+export const fetchSingleContact = async (id: number): Promise<ContactInterface | null> => {
+    return Contact.findById(id);
 }
 
-export const createContact = (data: Contact): string => {
-    const contactExists = contactData.findIndex(contact => contact.id === data.id);
-    if (data !== undefined && contactExists === -1) {
-        contactData.push(data);
-        writeJson(contactFile, contactData);
-        return "Contact created correctly";
-    }
+export const createContact = async (data: ContactInterface): Promise<ContactInterface | null> => {
+    const newContact = new Contact(data);
+    return await newContact.save();
 
-    return "Error creating contact";
+
 }
 
-export const editContact = (id: number, data: Contact): string => {
-    const contactExists = contactData.findIndex(contact => contact.id === id);
-    if (data !== undefined && contactExists !== -1) {
-        contactData[contactExists] = { ...contactData[contactExists], ...data };
-        writeJson(contactFile, contactData);
-        return "Contact edited correctly";
-    }
-
-    return "Error editing contact";
+export const editContact = async (id: number, data: ContactInterface): Promise<ContactInterface | null> => {
+    return await Contact.findByIdAndUpdate(id, data, { new: true });
 }
 
-export const deleteContact = (id: number): string => {
-    const contactExists = contactData.findIndex(contact => contact.id === id);
-    if (contactExists !== -1) {
-        contactData.splice(contactExists, 1);
-        writeJson(contactFile, contactData);
-        return "Contact deleted correctly";
-    }
-
-    return "Error deleted contact";
+export const deleteContact = async (id: number): Promise<ContactInterface | null> => {
+    return await Contact.findByIdAndDelete(id).lean();
 }
+
 

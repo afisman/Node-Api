@@ -25,3 +25,5 @@ const userSchema = new Schema<UserInterface>({
     position: { type: String },
     password: { type: String },
 })
+
+export const User = model<UserInterface>('user', userSchema)

@@ -1,47 +1,30 @@
-import { readJson, writeJson } from '../util/dataJson';
-import { userfile } from '../util/fileNames';
-import { User } from '../interfaces/User';
 
-const userData = readJson(userfile) as User[];
+import { User, UserInterface } from '../interfaces/User';
 
-export const fetchAllUsers = (): User[] => {
-    return userData;
+const bcrypt = require('bcrypt');
+
+export const fetchAllUsers = async (): Promise<UserInterface[]> => {
+    return await User.find();
 }
 
-export const fetchSingleUser = (id: number): User => {
-    const singleUser = userData.find(user => user.id === id) || {} as User;
-    return singleUser;
+export const fetchSingleUser = async (id: number): Promise<UserInterface | null> => {
+    return await User.findById(id);
 }
 
-export const createUser = (data: User): string => {
-    const userExists = userData.findIndex(user => user.id === data.id);
-    if (data !== undefined && userExists === -1) {
-        userData.push(data);
-        writeJson(userfile, userData);
-        return "User created correctly";
-    }
+export const createUser = async (data: UserInterface): Promise<UserInterface> => {
+    const rawPassword = data.password;
+    const saltRounds = 10;
+    const hashedPassword = bcrypt.hash(rawPassword, saltRounds);
 
-    return "Error creating User";
+    const newUser = new User({ ...data, password: hashedPassword });
+    return await newUser.save();
+
 }
 
-export const editUser = (id: number, data: User): string => {
-    const userExists = userData.findIndex(user => user.id === id);
-    if (data !== undefined && userExists !== -1) {
-        userData[userExists] = { ...userData[userExists], ...data };
-        writeJson(userfile, userData);
-        return "User edited correctly";
-    }
-
-    return "Error editing User";
+export const editUser = async (id: number, data: UserInterface): Promise<UserInterface | null> => {
+    return await User.findByIdAndUpdate(id, data, { new: true })
 }
 
-export const deleteUser = (id: number): string => {
-    const userExists = userData.findIndex(user => user.id === id);
-    if (userExists !== -1) {
-        userData.splice(userExists, 1);
-        writeJson(userfile, userData);
-        return "User deleted correctly";
-    }
-
-    return "Error deleted User";
+export const deleteUser = async (id: number): Promise<UserInterface | null> => {
+    return await User.findByIdAndDelete(id).lean()
 }
