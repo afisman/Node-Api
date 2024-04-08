@@ -1,5 +1,7 @@
-export interface Contact {
-    id: number;
+import { Schema, model } from "mongoose";
+
+
+export interface ContactInterface {
     image: string;
     full_name: string;
     email: string;
@@ -9,3 +11,19 @@ export interface Contact {
     rating: number;
     read: boolean;
 }
+
+const contactSchema = new Schema<ContactInterface>({
+    image: { type: String, required: true },
+    full_name: { type: String, required: true },
+    email: { type: String, required: true },
+    phone: { type: String, required: true },
+    date: { type: String, required: true },
+    message: { type: String, required: true },
+    rating: { type: Number, required: true },
+    read: { type: Boolean, required: true },
+},
+    {
+        timestamps: true,
+    })
+
+export const Contact = model<ContactInterface>('contact', contactSchema);

@@ -22,7 +22,10 @@ app.use('/contact', contactController);
 
 app.use("/", pageController);
 
-app.use((error: Error, req: Request, res: Response, _next: NextFunction))
+app.use((error: Error, req: Request, res: Response, _next: NextFunction) => {
+    console.error(error)
+    
+})
 
 
 

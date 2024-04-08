@@ -1,4 +1,6 @@
-export interface User {
+import { Schema, model } from "mongoose";
+
+export interface UserInterface {
     id: number
     full_name: string
     contact: string
@@ -10,3 +12,16 @@ export interface User {
     position: string,
     password: string
 }
+
+const userSchema = new Schema<UserInterface>({
+    id: { type: Number, required: true },
+    full_name: { type: String },
+    contact: { type: String },
+    email: { type: String },
+    photo: { type: String },
+    start_date: { type: String },
+    description: { type: String },
+    status: { type: String },
+    position: { type: String },
+    password: { type: String },
+})
