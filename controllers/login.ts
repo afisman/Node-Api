@@ -7,11 +7,11 @@ export const loginController = express.Router();
 
 loginController.post("/", async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
 
-        const loginAccepted = await login({ username: username, password: password });
+        const loginAccepted = await login({ email: email, password: password });
         if (loginAccepted === true) {
-            const authToken = generateAccessToken(username);
+            const authToken = generateAccessToken(email);
             res.json(authToken);
         } else {
             throw new AppError({ status: 401, message: "The user is unauthorized" });
