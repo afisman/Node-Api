@@ -5,9 +5,9 @@ import { mongoConnect } from "../mongoConfig";
 import { Room } from "../interfaces/Room";
 
 
-async function seedDB() {
+export const bookingsSeedDB = async () => {
     try {
-        await mongoConnect()
+        // await mongoConnect()
 
         const roomArray = await Room.find();
 
@@ -32,16 +32,9 @@ async function seedDB() {
             });
             await document.save();
         }
-
-
-
-
     } catch (err) {
         console.log(err);
-    } finally {
-        await mongoose.disconnect();
     }
 }
 
-seedDB();
 

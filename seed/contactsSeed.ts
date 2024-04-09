@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 import { mongoConnect } from "../mongoConfig";
 import { Contact } from "../interfaces/Contact";
 
-async function seedDB() {
+export const contactsSeedDB = async () => {
     try {
         await mongoConnect()
 
@@ -30,9 +30,6 @@ async function seedDB() {
 
     } catch (err) {
         console.log(err);
-    } finally {
-        await mongoose.disconnect();
     }
 }
 
-seedDB();

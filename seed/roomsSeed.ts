@@ -4,11 +4,13 @@ import { faker } from '@faker-js/faker';
 
 import { mongoConnect } from "../mongoConfig";
 
-async function seedDB() {
+export const roomsSeedDB = async () => {
     try {
         await mongoConnect()
 
         await Room.collection.drop();
+
+        const amenities_list = ['Breakfast', 'Smart Security', 'Locker', 'Shower', '24/7 Online Support', 'Kitchen', 'Cleaning', 'High Speed Wifi', 'Air Conditioner', 'Towels', 'Grocery', 'Single Bed', 'Shop Near', 'Terrace', 'Double Bed', 'Room Service'];
 
         for (let i = 0; i < 15; i++) {
             const offer = faker.helpers.arrayElement(["Yes", "No"])
@@ -22,7 +24,7 @@ async function seedDB() {
                 room_floor: faker.lorem.word(),
                 rate: faker.commerce.price({ min: 5000, max: 35000 }),
                 discount: offer === "YES" ? faker.number.int({ min: 10, max: 50 }).toString() : '0',
-                amenities: [faker.lorem.word(), faker.lorem.word(), faker.lorem.word()],
+                amenities: faker.helpers.arrayElements(amenities_list, { min: 1, max: amenities_list.length }),
                 status: "Available"
             })
             await document.save();
@@ -33,9 +35,6 @@ async function seedDB() {
 
     } catch (err) {
         console.log(err);
-    } finally {
-        await mongoose.disconnect();
     }
 }
 
-seedDB();

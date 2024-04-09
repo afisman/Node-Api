@@ -5,7 +5,7 @@ import { mongoConnect } from "../mongoConfig";
 import { User } from "../interfaces/User";
 import { hashPassword } from "../util/bcryptUtil";
 
-async function seedDB() {
+export const usersSeedDB = async () => {
     try {
         await mongoConnect()
 
@@ -36,9 +36,5 @@ async function seedDB() {
 
     } catch (err) {
         console.log(err);
-    } finally {
-        await mongoose.disconnect();
     }
 }
-
-seedDB();
