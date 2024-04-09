@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const MONGODB = process.env.MONGODB_URI || 'mongodb://127.0.0.1/miranda-dashboard-DB'
+const MONGODB = process.env.MONGODB_URI!
 
 export async function mongoConnect() {
 
