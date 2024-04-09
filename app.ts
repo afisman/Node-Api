@@ -20,7 +20,7 @@ mongoConnect();
 app.use("/login", loginController);
 app.use("/", pageController);
 
-app.use(authenticateToken);
+// app.use(authenticateToken);
 
 app.use('/bookings', bookingController);
 app.use('/rooms', roomController);

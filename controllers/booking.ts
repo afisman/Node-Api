@@ -1,12 +1,13 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createBooking, deleteBooking, editBooking, fetchAllBookings, fetchSingleBooking } from '../services/booking';
-import { authenticateToken } from '../middleware/auth';
+import { parseResponse } from '../util/parseResponse';
+
 
 export const bookingController = express.Router();
 
 bookingController.get("/", async (_req: Request, res: Response) => {
     try {
-        const bookings = await fetchAllBookings()
+        const bookings = await fetchAllBookings();
         res.json(bookings);
     } catch (error) {
         console.error('An error ocurred', error);
@@ -17,7 +18,7 @@ bookingController.get("/", async (_req: Request, res: Response) => {
 bookingController.get("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        const booking = await fetchSingleBooking(id)
+        const booking = await fetchSingleBooking(id);
         res.json(booking);
     } catch (error) {
         console.error('An error ocurred', error);
@@ -28,7 +29,7 @@ bookingController.get("/:id", async (req: Request, res: Response, _next: NextFun
 bookingController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
 
     try {
-        const newBooking = await createBooking(req.body)
+        const newBooking = await createBooking(req.body);
         res.json(newBooking);
     } catch (error) {
         console.error('An error ocurred', error);
@@ -39,7 +40,7 @@ bookingController.post("/create", async (req: Request, res: Response, _next: Nex
 bookingController.put("/edit/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        const bookingToEdit = editBooking(id, req.body)
+        const bookingToEdit = editBooking(id, req.body);
         res.json(bookingToEdit);
     } catch (error) {
         console.error()
@@ -50,7 +51,7 @@ bookingController.put("/edit/:id", async (req: Request, res: Response, _next: Ne
 bookingController.delete("/delete/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        const bookingToDelete = deleteBooking(id)
+        const bookingToDelete = deleteBooking(id);
         res.json(bookingToDelete);
     } catch (error) {
         console.error('An error ocurred', error);

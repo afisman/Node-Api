@@ -9,7 +9,15 @@
             "email": "afisman@gmail.com"
         }
     },
-    "host": "vevpsavqpa.execute-api.eu-west-3.amazonaws.com/dev/",
+    "servers": [
+        {
+            "url": "https://vevpsavqpa.execute-api.eu-west-3.amazonaws.com/dev/",
+            "description": "Default server"
+        },
+        {
+            "url": "http://localhost:3000"
+        }
+    ],
     "basePath": "/",
     "tags": [
         {
@@ -41,10 +49,6 @@
         {
             "BearerAuth": []
         }
-    ],
-    "schemes": [
-        "https",
-        "http"
     ],
     "paths": {
         "/bookings": {

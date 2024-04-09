@@ -1,5 +1,5 @@
 
-import { AppError } from '../class/Apperror';
+import { AppError } from '../class/AppError';
 import { Contact, ContactInterface } from '../interfaces/Contact';
 
 export const fetchAllContacts = async (): Promise<ContactInterface[]> => {
