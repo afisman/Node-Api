@@ -42,7 +42,7 @@
             "type": "apiKey",
             "name": "Authorization",
             "in": "header",
-            "description": "Enter the token with the Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFmaXNtYW4iLCJpYXQiOjE3MTI2NjMzODYsImV4cCI6MTcyMTMwMzM4Nn0.S1eXrCqBgjDzKFIMQXAi-16NQkMF5YAs518nVDT8FPE"
+            "description": "Enter the token with the Bearer"
         }
     },
     "security": [
