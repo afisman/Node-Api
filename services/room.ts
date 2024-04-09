@@ -2,8 +2,6 @@
 import { AppError } from '../class/AppError';
 import { Room, RoomInterface } from '../interfaces/Room';
 
-
-
 export const fetchAllRooms = async (): Promise<RoomInterface[]> => {
     try {
         return await Room.find();
@@ -27,7 +25,6 @@ export const createRoom = async (data: RoomInterface): Promise<RoomInterface> =>
     } catch (error) {
         throw new AppError({ status: 500, message: "internal server error" })
     }
-
 }
 
 export const editRoom = async (id: any, data: RoomInterface): Promise<RoomInterface | null> => {

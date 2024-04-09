@@ -41,7 +41,8 @@ bookingController.put("/edit/:id", async (req: Request, res: Response, _next: Ne
         const bookingToEdit = await editBooking(id, req.body);
         res.json(bookingToEdit);
     } catch (error) {
-        console.error()
+        console.error('An error ocurred', error);
+        res.status(500).json({ error });
     }
 
 })
@@ -51,7 +52,6 @@ bookingController.delete("/delete/:id", async (req: Request, res: Response, _nex
     console.log(req.params.id)
     try {
         const bookingToDelete = await deleteBooking(id);
-        console.log(bookingToDelete)
         res.json(bookingToDelete);
     } catch (error) {
         console.error('An error ocurred', error);

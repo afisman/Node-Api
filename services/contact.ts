@@ -26,8 +26,6 @@ export const createContact = async (data: ContactInterface): Promise<ContactInte
     } catch (error) {
         throw new AppError({ status: 500, message: "internal server error" })
     }
-
-
 }
 
 export const editContact = async (id: any, data: ContactInterface): Promise<ContactInterface | null> => {

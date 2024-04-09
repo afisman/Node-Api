@@ -3,8 +3,7 @@ import { faker } from '@faker-js/faker';
 
 import { mongoConnect } from "../mongoConfig";
 import { User } from "../interfaces/User";
-
-const bcrypt = require('bcryptjs');
+import { hashPassword } from "../util/bcryptUtil";
 
 async function seedDB() {
     try {
@@ -15,8 +14,7 @@ async function seedDB() {
         for (let i = 0; i < 15; i++) {
 
             const rawPassword = faker.internet.password({ length: 10, memorable: true });
-            const saltRounds = 10;
-            const hashedPassword = await bcrypt.hash(rawPassword, saltRounds);
+            const hashedPassword = hashPassword(rawPassword);
 
             const document = new User({
                 full_name: faker.person.fullName(),

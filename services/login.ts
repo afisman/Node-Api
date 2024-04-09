@@ -1,8 +1,8 @@
-import { User, UserInterface } from "../interfaces/User";
+import { User } from "../interfaces/User";
 
 const testUser = { username: 'afisman', password: '12345' };
 
-const bcrypt = require('bcryptjs');
+import { compareHash } from "../util/bcryptUtil";
 
 
 export const login = async (userLogin: any): Promise<boolean> => {
@@ -11,7 +11,7 @@ export const login = async (userLogin: any): Promise<boolean> => {
     let isAuthenticated = false
 
     if (userCheck) {
-        isAuthenticated = await bcrypt.compare(userLogin.password, userCheck.password)
+        isAuthenticated = compareHash(userLogin.password, userCheck.password)
     }
 
     return isAuthenticated
