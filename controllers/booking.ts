@@ -1,7 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createBooking, deleteBooking, editBooking, fetchAllBookings, fetchSingleBooking } from '../services/booking';
-import { parseResponse } from '../util/parseResponse';
-
 
 export const bookingController = express.Router();
 
@@ -40,7 +38,7 @@ bookingController.post("/create", async (req: Request, res: Response, _next: Nex
 bookingController.put("/edit/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        const bookingToEdit = editBooking(id, req.body);
+        const bookingToEdit = await editBooking(id, req.body);
         res.json(bookingToEdit);
     } catch (error) {
         console.error()
@@ -50,8 +48,10 @@ bookingController.put("/edit/:id", async (req: Request, res: Response, _next: Ne
 
 bookingController.delete("/delete/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
+    console.log(req.params.id)
     try {
-        const bookingToDelete = deleteBooking(id);
+        const bookingToDelete = await deleteBooking(id);
+        console.log(bookingToDelete)
         res.json(bookingToDelete);
     } catch (error) {
         console.error('An error ocurred', error);

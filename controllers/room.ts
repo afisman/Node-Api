@@ -1,6 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createRoom, deleteRoom, editRoom, fetchAllRooms, fetchSingleRoom } from '../services/room';
-import { authenticateToken } from '../middleware/auth';
 
 export const roomController = express.Router();
 

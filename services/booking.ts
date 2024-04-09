@@ -39,7 +39,8 @@ export const editBooking = async (id: any, data: BookingInterface): Promise<Book
 
 export const deleteBooking = async (id: any): Promise<BookingInterface | null> => {
     try {
-        return await Booking.findByIdAndDelete(id).lean();
+        console.log(id)
+        return await Booking.findByIdAndDelete(id);
     } catch (error) {
         throw new AppError({ status: 500, message: "internal server error" })
     }

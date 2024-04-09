@@ -1,6 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createContact, deleteContact, editContact, fetchAllContacts, fetchSingleContact } from '../services/contact';
-import { authenticateToken } from '../middleware/auth';
 
 export const contactController = express.Router();
 
@@ -49,7 +48,7 @@ contactController.put("/edit/:id", async (req: Request, res: Response, _next: Ne
 contactController.delete("/delete/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
-        const contactToDelete = deleteContact(id)
+        const contactToDelete = await deleteContact(id)
         res.json(contactToDelete);
     } catch (error) {
         console.error('An error ocurred', error);

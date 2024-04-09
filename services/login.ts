@@ -8,14 +8,17 @@ const bcrypt = require('bcryptjs');
 export const login = async (userLogin: any): Promise<boolean> => {
 
     const userCheck = await User.findOne({ email: userLogin.email });
+    let isAuthenticated = false
 
-    const isAuthenticated = true;
-
-
-
-    const { username = testUser.username, password = testUser.password } = userLogin
-    if (username === 'afisman' && password === '12345') {
-        return true
+    if (userCheck) {
+        isAuthenticated = await bcrypt.compare(userLogin.password, userCheck.password)
     }
-    return false
+
+    return isAuthenticated
+    //    const { username = testUser.username, password = testUser.password } = userLogin
+    //    if (username === 'afisman' && password === '12345') {
+    //        return true
+    //    }
+    //    return false
+
 }

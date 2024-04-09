@@ -7,6 +7,7 @@ import { loginController } from './controllers/login';
 import { pageController } from './controllers/page';
 import { mongoConnect } from './mongoConfig';
 import { authenticateToken } from './middleware/auth';
+import { AppError } from './class/AppError';
 
 
 
@@ -20,7 +21,7 @@ mongoConnect();
 app.use("/login", loginController);
 app.use("/", pageController);
 
-// app.use(authenticateToken);
+app.use(authenticateToken);
 
 app.use('/bookings', bookingController);
 app.use('/rooms', roomController);
@@ -28,10 +29,9 @@ app.use('/users', userController);
 app.use('/contact', contactController);
 
 
-// app.use((error: Error, _req: Request, _res: Response, _next: NextFunction): any => {
-//     console.error(error)
-
-// })
+app.use((error: any, _req: Request, _res: Response, _next: NextFunction): any => {
+    throw new AppError({ status: error.status, message: error.message })
+})
 
 
 

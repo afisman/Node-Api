@@ -1,6 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createUser, deleteUser, editUser, fetchAllUsers, fetchSingleUser } from '../services/user';
-import { authenticateToken } from '../middleware/auth';
 
 export const userController = express.Router();
 
