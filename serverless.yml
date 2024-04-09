@@ -7,7 +7,7 @@ package:
     - "node_modules/**"
     - "dist/**"
     - "data/**"
-    - "index.html"
+    - "public/**"
 provider:
   name: aws
   region: eu-west-3

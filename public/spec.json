@@ -2,15 +2,15 @@
     "swagger": "2.0",
     "info": {
         "description": "Api for Miranda Dashboard project",
-        "version": "1.0.7",
+        "version": "1.0.0",
         "title": "API miranda",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "email": "afisman@gmail.com"
         }
     },
-    "host": "https://vevpsavqpa.execute-api.eu-west-3.amazonaws.com/dev/",
-    "basePath": "/v2",
+    "host": "vevpsavqpa.execute-api.eu-west-3.amazonaws.com/dev/",
+    "basePath": "/",
     "tags": [
         {
             "name": "bookings",
@@ -27,6 +27,19 @@
         {
             "name": "messages",
             "description": "Message information"
+        }
+    ],
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "Enter the token with the Bearer"
+        }
+    },
+    "security": [
+        {
+            "BearerAuth": []
         }
     ],
     "schemes": [

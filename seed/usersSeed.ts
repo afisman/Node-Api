@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 import { mongoConnect } from "../mongoConfig";
 import { User } from "../interfaces/User";
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 async function seedDB() {
     try {

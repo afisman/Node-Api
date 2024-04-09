@@ -25,7 +25,7 @@ contactController.get("/:id", async (req: Request, res: Response, _next: NextFun
     }
 })
 
-contactController.post("/create", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
+contactController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
     try {
         const newContact = await createContact(req.body)
         res.json(newContact);
@@ -35,7 +35,7 @@ contactController.post("/create", authenticateToken, async (req: Request, res: R
     }
 })
 
-contactController.put("/edit/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
+contactController.put("/edit/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
         const contactToEdit = await editContact(id, req.body)
@@ -46,7 +46,7 @@ contactController.put("/edit/:id", authenticateToken, async (req: Request, res: 
     }
 })
 
-contactController.delete("/delete/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
+contactController.delete("/delete/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
         const contactToDelete = deleteContact(id)

@@ -2,14 +2,14 @@ import { User, UserInterface } from "../interfaces/User";
 
 const testUser = { username: 'afisman', password: '12345' };
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 
 export const login = async (userLogin: any): Promise<boolean> => {
 
-    // const userCheck = await User.findOne({ email: userLogin.email })
+    const userCheck = await User.findOne({ email: userLogin.email });
 
-    // const isAuthenticated
+    const isAuthenticated = true;
 
 
 

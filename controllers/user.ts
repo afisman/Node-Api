@@ -26,7 +26,7 @@ userController.get("/:id", async (req: Request, res: Response, _next: NextFuncti
 })
 
 
-userController.post("/create", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
+userController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
     try {
         const newUser = await createUser(req.body)
         res.json(newUser);
@@ -36,7 +36,7 @@ userController.post("/create", authenticateToken, async (req: Request, res: Resp
     }
 })
 
-userController.put("/edit/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
+userController.put("/edit/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
         const userToEdit = await editUser(id, req.body)
@@ -47,7 +47,7 @@ userController.put("/edit/:id", authenticateToken, async (req: Request, res: Res
     }
 })
 
-userController.delete("/delete/:id", authenticateToken, async (req: Request, res: Response, _next: NextFunction) => {
+userController.delete("/delete/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
         const userToDelete = await deleteUser(id)
