@@ -41,6 +41,9 @@
     "testEnvironment": "node",
     "preset": "ts-jest",
     "verbose": true,
+    "testPathIgnorePatterns": [
+      "<rootDir>/dist/"
+    ],
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ]
