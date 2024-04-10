@@ -5,7 +5,8 @@ import { Booking, BookingInterface } from '../interfaces/Booking';
 
 export const fetchAllBookings = async (): Promise<BookingInterface[]> => {
     try {
-        return await Booking.find().populate(["room"]);
+        console.log('En el fetch, async')
+        return await Booking.find().populate("room");
     } catch (error) {
         throw new AppError({ status: 500, message: "internal server error" })
     }

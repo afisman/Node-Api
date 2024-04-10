@@ -7,7 +7,7 @@ const malformedJWT = 'Hello world'
 describe('Put Endpoints for bookings', () => {
     it('should try to edit booking with no token', async () => {
         const res = await request(app)
-            .put('/bookings/edit/12')
+            .put('/bookings/12')
             .send({
                 name: 'test is cool',
             })
@@ -15,7 +15,7 @@ describe('Put Endpoints for bookings', () => {
     })
     it('should try to edit booking with malformed token', async () => {
         const res = await request(app)
-            .put('/bookings/edit/12')
+            .put('/bookings/12')
             .set({ authorization: malformedJWT })
             .send({
                 name: 'test is cool',
@@ -24,7 +24,7 @@ describe('Put Endpoints for bookings', () => {
     })
     it('should try to edit booking with correct token', async () => {
         const res = await request(app)
-            .put('/bookings/edit/12')
+            .put('/bookings/12')
             .set({ authorization: authToken })
             .send({
                 name: 'test is cool',
@@ -36,7 +36,7 @@ describe('Put Endpoints for bookings', () => {
 describe('Put Endpoints for users', () => {
     it('should try to edit user with no token', async () => {
         const res = await request(app)
-            .put('/users/edit/12')
+            .put('/users/12')
             .send({
                 full_name: 'Thomas Muntz',
             })
@@ -44,7 +44,7 @@ describe('Put Endpoints for users', () => {
     })
     it('should try to edit user with malformed token', async () => {
         const res = await request(app)
-            .put('/users/edit/12')
+            .put('/users/12')
             .set({ authorization: malformedJWT })
             .send({
                 full_name: 'Martin luther',
@@ -53,7 +53,7 @@ describe('Put Endpoints for users', () => {
     })
     it('should try to edit user with correct token', async () => {
         const res = await request(app)
-            .put('/users/edit/12')
+            .put('/users/12')
             .set({ authorization: authToken })
             .send({
                 full_name: 'Melchior Hoffman',
@@ -65,7 +65,7 @@ describe('Put Endpoints for users', () => {
 describe('Put Endpoints for rooms', () => {
     it('should try to edit user with no token', async () => {
         const res = await request(app)
-            .put('/rooms/edit/12')
+            .put('/rooms/12')
             .send({
                 description: 'Best room in hotel',
             })
@@ -73,7 +73,7 @@ describe('Put Endpoints for rooms', () => {
     })
     it('should try to edit user with malformed token', async () => {
         const res = await request(app)
-            .put('/rooms/edit/12')
+            .put('/rooms/12')
             .set({ authorization: malformedJWT })
             .send({
                 description: 'Best room in hotel',
@@ -82,7 +82,7 @@ describe('Put Endpoints for rooms', () => {
     })
     it('should try to edit user with correct token', async () => {
         const res = await request(app)
-            .put('/rooms/edit/12')
+            .put('/rooms/12')
             .set({ authorization: authToken })
             .send({
                 description: 'Best room in hotel',

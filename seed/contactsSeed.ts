@@ -6,7 +6,6 @@ import { Contact } from "../interfaces/Contact";
 
 export const contactsSeedDB = async () => {
     try {
-        await mongoConnect()
 
         await Contact.collection.drop();
 

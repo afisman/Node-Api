@@ -6,7 +6,6 @@ import { mongoConnect } from "../mongoConfig";
 
 export const roomsSeedDB = async () => {
     try {
-        await mongoConnect()
 
         await Room.collection.drop();
 
@@ -21,7 +20,7 @@ export const roomsSeedDB = async () => {
                 room_number: faker.lorem.word() + '-' + faker.number.int({ max: 500 }),
                 description: faker.lorem.paragraph(2),
                 offer: offer,
-                room_floor: faker.lorem.word(),
+                room_floor: faker.number.int({ max: 21 }),
                 rate: faker.commerce.price({ min: 5000, max: 35000 }),
                 discount: offer === "YES" ? faker.number.int({ min: 10, max: 50 }).toString() : '0',
                 amenities: faker.helpers.arrayElements(amenities_list, { min: 1, max: amenities_list.length }),
@@ -29,9 +28,6 @@ export const roomsSeedDB = async () => {
             })
             await document.save();
         }
-
-
-
 
     } catch (err) {
         console.log(err);

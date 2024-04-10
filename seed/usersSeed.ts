@@ -7,8 +7,6 @@ import { hashPassword } from "../util/bcryptUtil";
 
 export const usersSeedDB = async () => {
     try {
-        await mongoConnect()
-
         await User.collection.drop();
 
         for (let i = 0; i < 15; i++) {
@@ -30,9 +28,6 @@ export const usersSeedDB = async () => {
             console.log(rawPassword)
             await document.save();
         }
-
-
-
 
     } catch (err) {
         console.log(err);

@@ -7,8 +7,6 @@ import { Room } from "../interfaces/Room";
 
 export const bookingsSeedDB = async () => {
     try {
-        // await mongoConnect()
-
         const roomArray = await Room.find();
 
         await Booking.collection.drop();

@@ -7,7 +7,8 @@
     "start": "nodemon",
     "test": "jest",
     "build": "rimraf dist && tsc --build",
-    "deploy": "npm run build && serverless deploy"
+    "deploy": "npm run build && serverless deploy",
+    "zid": "npx ts-node seed/seed.ts"
   },
   "author": "Alef Tau",
   "license": "ISC",
