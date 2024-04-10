@@ -4,11 +4,14 @@ import mongoose from 'mongoose';
 import { fetchSingleContact } from '../services/contact';
 import { fetchSingleRoom } from '../services/room';
 import { fetchSingleBooking } from '../services/booking';
+import { mongoConnect } from '../mongoConfig';
+
 
 
 
 const authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsZWZ0YXUiLCJpYXQiOjE3MTIwNzEyNjksImV4cCI6MTcyMDcxMTI2OX0.vDPJQB-ich5_n9B_tewv4ViWlOg_FeI-duod39aVPws";
-const malformedJWT = 'Hello world'
+const malformedJWT = 'Hello world';
+
 
 
 
@@ -80,7 +83,8 @@ describe('Tests for bookings', () => {
             .set({ authorization: authToken })
             .send(bookingToUse)
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toMatchObject(fetchSingleBooking(idToUse))
+        const singleBooking = await fetchSingleBooking(idToUse)
+        expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleBooking)))
     })
     it('should try to edit booking with correct token', async () => {
         const res = await request(app)
@@ -88,7 +92,8 @@ describe('Tests for bookings', () => {
             .set({ authorization: authToken })
             .send({ ...bookingToUse, name: "Rodney Stamm" })
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toMatchObject(fetchSingleBooking(idToUse))
+        const singleBooking = await fetchSingleBooking(idToUse)
+        expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleBooking)))
     })
 })
 
@@ -180,7 +185,8 @@ describe('Tests for rooms', () => {
             .set({ authorization: authToken })
             .send(roomToUse)
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toMatchObject(fetchSingleRoom(idToUse))
+        const singleRoom = fetchSingleRoom(idToUse)
+        expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleRoom)))
     })
     it('should try to edit room with correct token', async () => {
         const editedData = { ...roomToUse, room_floor: "22" }
@@ -189,7 +195,8 @@ describe('Tests for rooms', () => {
             .set({ authorization: authToken })
             .send(editedData)
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toMatchObject(fetchSingleRoom(idToUse))
+        const singleRoom = fetchSingleRoom(idToUse)
+        expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleRoom)))
     })
 })
 
@@ -263,7 +270,8 @@ describe('Tests for contact', () => {
             .set({ authorization: authToken })
             .send(contactToUse)
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toMatchObject(fetchSingleContact(idToUse))
+        const singleContact = await fetchSingleContact(idToUse)
+        expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleContact)))
     })
     it('should try to edit contact with correct token', async () => {
         const editedData = { ...contactToUse, message: "I have changed the message" }
@@ -272,12 +280,12 @@ describe('Tests for contact', () => {
             .set({ authorization: authToken })
             .send(editedData)
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toMatchObject(fetchSingleContact(idToUse))
+        const singleContact = await fetchSingleContact(idToUse)
+        expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleContact)))
     })
 })
 
-afterAll(() => mongoose.connection.close())
-
+afterAll(async () => await mongoose.connection.close());
 
 
 
