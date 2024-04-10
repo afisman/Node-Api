@@ -4,9 +4,11 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const MONGODB = process.env.MONGODB_URI!
 
-export async function mongoConnect() {
+
+export async function mongoConnect(host = null) {
+
+    const MONGODB = host ? host : process.env.MONGODB_URI!;
 
     mongoose
         .connect(MONGODB)
