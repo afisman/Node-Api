@@ -75,46 +75,7 @@
                         "description": "User is not authenticated"
                     }
                 }
-            }
-        },
-        "/bookings/{bookingId}": {
-            "get": {
-                "tags": [
-                    "bookings"
-                ],
-                "summary": "Get booking by id",
-                "description": "Get booking by id",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "bookingId",
-                        "in": "path",
-                        "description": "Booking ID",
-                        "required": true,
-                        "type": "string",
-                        "format": "string",
-                        "example": "6613f40c9ad3c403684ba448"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/Bookings"
-                        }
-                    },
-                    "404": {
-                        "description": "Booking not found"
-                    },
-                    "401": {
-                        "description": "User is not authenticated"
-                    }
-                }
-            }
-        },
-        "/bookings/create": {
+            },
             "post": {
                 "tags": [
                     "bookings"
@@ -158,7 +119,42 @@
                 }
             }
         },
-        "/bookings/edit/{bookingID}": {
+        "/bookings/{bookingId}": {
+            "get": {
+                "tags": [
+                    "bookings"
+                ],
+                "summary": "Get booking by id",
+                "description": "Get booking by id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "bookingId",
+                        "in": "path",
+                        "description": "Booking ID",
+                        "required": true,
+                        "type": "string",
+                        "format": "string",
+                        "example": "6613f40c9ad3c403684ba448"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Bookings"
+                        }
+                    },
+                    "404": {
+                        "description": "Booking not found"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "bookings"
@@ -209,9 +205,7 @@
                         "description": "User is not authenticated"
                     }
                 }
-            }
-        },
-        "/bookings/delete/{bookingId}": {
+            },
             "delete": {
                 "tags": [
                     "bookings"
@@ -276,45 +270,7 @@
                         "description": "User is not authenticated"
                     }
                 }
-            }
-        },
-        "/rooms/{roomId}": {
-            "get": {
-                "tags": [
-                    "rooms"
-                ],
-                "summary": "Get room by id",
-                "description": "Get room by id",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "roomId",
-                        "in": "path",
-                        "description": "Room ID",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/Rooms"
-                        }
-                    },
-                    "404": {
-                        "description": "Room not found"
-                    },
-                    "401": {
-                        "description": "User is not authenticated"
-                    }
-                }
-            }
-        },
-        "/rooms/create": {
+            },
             "post": {
                 "tags": [
                     "rooms"
@@ -358,7 +314,41 @@
                 }
             }
         },
-        "/rooms/edit/{roomId}": {
+        "/rooms/{roomId}": {
+            "get": {
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Get room by id",
+                "description": "Get room by id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "roomId",
+                        "in": "path",
+                        "description": "Room ID",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Rooms"
+                        }
+                    },
+                    "404": {
+                        "description": "Room not found"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "rooms"
@@ -408,9 +398,7 @@
                         "description": "User is not authenticated"
                     }
                 }
-            }
-        },
-        "/rooms/delete/{roomId}": {
+            },
             "delete": {
                 "tags": [
                     "rooms"
@@ -474,45 +462,7 @@
                         "description": "User is not authenticated"
                     }
                 }
-            }
-        },
-        "/users/{userId}": {
-            "get": {
-                "tags": [
-                    "users"
-                ],
-                "summary": "Get user by id",
-                "description": "Get user by id",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "userId",
-                        "in": "path",
-                        "description": "User ID",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/Users"
-                        }
-                    },
-                    "404": {
-                        "description": "User not found"
-                    },
-                    "401": {
-                        "description": "User is not authenticated"
-                    }
-                }
-            }
-        },
-        "/users/create": {
+            },
             "post": {
                 "tags": [
                     "users"
@@ -556,7 +506,41 @@
                 }
             }
         },
-        "/users/edit/{userId}": {
+        "/users/{userId}": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get user by id",
+                "description": "Get user by id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "users"
@@ -606,9 +590,7 @@
                         "description": "User is not authenticated"
                     }
                 }
-            }
-        },
-        "/users/delete/{userId}": {
+            },
             "delete": {
                 "tags": [
                     "users"
@@ -672,45 +654,7 @@
                         "description": "User is not authenticated"
                     }
                 }
-            }
-        },
-        "/contact/{contactId}": {
-            "get": {
-                "tags": [
-                    "contact"
-                ],
-                "summary": "Get message by id",
-                "description": "Get message by id",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "contactId",
-                        "in": "path",
-                        "description": "Contact ID",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/Contact"
-                        }
-                    },
-                    "404": {
-                        "description": "Message not found"
-                    },
-                    "401": {
-                        "description": "User is not authenticated"
-                    }
-                }
-            }
-        },
-        "/contact/create": {
+            },
             "post": {
                 "tags": [
                     "contact"
@@ -754,7 +698,41 @@
                 }
             }
         },
-        "/contact/edit/{contactId}": {
+        "/contact/{contactId}": {
+            "get": {
+                "tags": [
+                    "contact"
+                ],
+                "summary": "Get message by id",
+                "description": "Get message by id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "contactId",
+                        "in": "path",
+                        "description": "Contact ID",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Contact"
+                        }
+                    },
+                    "404": {
+                        "description": "Message not found"
+                    },
+                    "401": {
+                        "description": "User is not authenticated"
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "contact"
@@ -804,9 +782,7 @@
                         "description": "User is not authenticated"
                     }
                 }
-            }
-        },
-        "/contact/delete/{contactId}": {
+            },
             "delete": {
                 "tags": [
                     "contact"

@@ -24,7 +24,7 @@ roomController.get("/:id", async (req: Request, res: Response, _next: NextFuncti
     }
 })
 
-roomController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
+roomController.post("/", async (req: Request, res: Response, _next: NextFunction) => {
     try {
         const newRoom = await createRoom(req.body)
         res.json(newRoom);
@@ -34,7 +34,7 @@ roomController.post("/create", async (req: Request, res: Response, _next: NextFu
     }
 })
 
-roomController.put("/edit/:id", async (req: Request, res: Response, _next: NextFunction) => {
+roomController.put("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
         const roomToEdit = await editRoom(id, req.body)
@@ -45,7 +45,7 @@ roomController.put("/edit/:id", async (req: Request, res: Response, _next: NextF
     }
 })
 
-roomController.delete("/delete/:id", async (req: Request, res: Response, _next: NextFunction) => {
+roomController.delete("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
         const roomToDelete = await deleteRoom(id)

@@ -24,7 +24,7 @@ bookingController.get("/:id", async (req: Request, res: Response, _next: NextFun
     }
 })
 
-bookingController.post("/create", async (req: Request, res: Response, _next: NextFunction) => {
+bookingController.post("/", async (req: Request, res: Response, _next: NextFunction) => {
 
     try {
         const newBooking = await createBooking(req.body);
@@ -35,7 +35,7 @@ bookingController.post("/create", async (req: Request, res: Response, _next: Nex
     }
 })
 
-bookingController.put("/edit/:id", async (req: Request, res: Response, _next: NextFunction) => {
+bookingController.put("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     try {
         const bookingToEdit = await editBooking(id, req.body);
@@ -47,7 +47,7 @@ bookingController.put("/edit/:id", async (req: Request, res: Response, _next: Ne
 
 })
 
-bookingController.delete("/delete/:id", async (req: Request, res: Response, _next: NextFunction) => {
+bookingController.delete("/:id", async (req: Request, res: Response, _next: NextFunction) => {
     const { id } = req.params;
     console.log(req.params.id)
     try {
