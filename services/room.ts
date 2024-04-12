@@ -3,43 +3,43 @@ import { AppError } from '../class/AppError';
 import { Room, RoomInterface } from '../interfaces/Room';
 
 export const fetchAllRooms = async (): Promise<RoomInterface[]> => {
-    try {
-        return await Room.find();
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const rooms = await Room.find();
+    if (rooms === null) {
+        throw new AppError({ status: 404, message: "Rooms not found" });
     }
+    return rooms;
 }
 
 export const fetchSingleRoom = async (id: any): Promise<RoomInterface | null> => {
-    try {
-        return await Room.findById(id);
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const room = await Room.findById(id);
+    if (room === null) {
+        throw new AppError({ status: 404, message: "Room not found" });
     }
+    return room;
 }
 
 export const createRoom = async (data: RoomInterface): Promise<RoomInterface> => {
-    try {
-        const newRoom = new Room(data);
-        return await newRoom.save();
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const room = await Room.create(data);
+    if (room === null) {
+        throw new AppError({ status: 404, message: "Room couldn't be created" });
     }
+    return room;
 }
 
 export const editRoom = async (id: any, data: RoomInterface): Promise<RoomInterface | null> => {
-    try {
-        return await Room.findByIdAndUpdate(id, data, { new: true });
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const room = await Room.findByIdAndUpdate(id, data, { new: true });
+    if (room === null) {
+        throw new AppError({ status: 404, message: "Room not found" });
     }
+    return room;
+
 }
 
 export const deleteRoom = async (id: any): Promise<RoomInterface | null> => {
-    try {
-        return await Room.findByIdAndDelete(id);
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const room = await Room.findByIdAndDelete(id);
+    if (room === null) {
+        throw new AppError({ status: 404, message: "Room not found" });
     }
+    return room;
 }
 
