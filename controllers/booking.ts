@@ -8,7 +8,7 @@ bookingController.get("/", async (_req: Request, res: Response, next: NextFuncti
         const bookings = await fetchAllBookings();
         res.json(bookings);
     } catch (error) {
-        next(error)
+        next(error);
     }
 })
 
@@ -18,7 +18,7 @@ bookingController.get("/:id", async (req: Request, res: Response, next: NextFunc
         const booking = await fetchSingleBooking(id);
         res.json(booking);
     } catch (error) {
-        next(error)
+        next(error);
     }
 })
 
@@ -28,7 +28,7 @@ bookingController.post("/", async (req: Request, res: Response, next: NextFuncti
         const newBooking = await createBooking(req.body);
         res.json(newBooking);
     } catch (error) {
-        next(error)
+        next(error);
     }
 })
 
@@ -38,7 +38,7 @@ bookingController.put("/:id", async (req: Request, res: Response, next: NextFunc
         const bookingToEdit = await editBooking(id, req.body);
         res.json(bookingToEdit);
     } catch (error) {
-        next(error)
+        next(error);
     }
 
 })
@@ -50,6 +50,6 @@ bookingController.delete("/:id", async (req: Request, res: Response, next: NextF
         const bookingToDelete = await deleteBooking(id);
         res.json(bookingToDelete);
     } catch (error) {
-        next(error)
+        next(error);
     }
 })
