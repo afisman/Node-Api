@@ -2,7 +2,7 @@
 import { AppError } from '../class/AppError';
 import { User, UserInterface } from '../interfaces/User';
 import bcrypt from 'bcryptjs';
-import { hashPassword } from '../util/bcryptUtil';
+import { compareHash, hashPassword } from '../util/bcryptUtil';
 
 
 export const fetchAllUsers = async (): Promise<UserInterface[]> => {
@@ -37,7 +37,17 @@ export const createUser = async (data: UserInterface): Promise<UserInterface> =>
 
 export const editUser = async (id: any, data: UserInterface): Promise<UserInterface | null> => {
     try {
-        return await User.findByIdAndUpdate(id, data, { new: true });
+        const userExists = await User.findById(id);
+
+
+        if (userExists && !compareHash(data.password, userExists.password)) {
+
+            const hashedPassword = hashPassword(data.password)
+
+            return await User.findByIdAndUpdate(id, { ...data, password: hashedPassword }, { new: true })
+        } else {
+            return await User.findByIdAndUpdate(id, data, { new: true });
+        }
     } catch (error) {
         throw new AppError({ status: 500, message: "internal server error" })
     }
