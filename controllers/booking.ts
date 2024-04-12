@@ -3,58 +3,53 @@ import { createBooking, deleteBooking, editBooking, fetchAllBookings, fetchSingl
 
 export const bookingController = express.Router();
 
-bookingController.get("/", async (_req: Request, res: Response) => {
+bookingController.get("/", async (_req: Request, res: Response, next: NextFunction) => {
     try {
         const bookings = await fetchAllBookings();
         res.json(bookings);
     } catch (error) {
-        console.error('An error ocurred', error);
-        res.status(500).json({ error });
+        next(error)
     }
 })
 
-bookingController.get("/:id", async (req: Request, res: Response, _next: NextFunction) => {
+bookingController.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     try {
         const booking = await fetchSingleBooking(id);
         res.json(booking);
     } catch (error) {
-        console.error('An error ocurred', error);
-        res.status(500).json({ error });
+        next(error)
     }
 })
 
-bookingController.post("/", async (req: Request, res: Response, _next: NextFunction) => {
+bookingController.post("/", async (req: Request, res: Response, next: NextFunction) => {
 
     try {
         const newBooking = await createBooking(req.body);
         res.json(newBooking);
     } catch (error) {
-        console.error('An error ocurred', error);
-        res.status(500).json({ error });
+        next(error)
     }
 })
 
-bookingController.put("/:id", async (req: Request, res: Response, _next: NextFunction) => {
+bookingController.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     try {
         const bookingToEdit = await editBooking(id, req.body);
         res.json(bookingToEdit);
     } catch (error) {
-        console.error('An error ocurred', error);
-        res.status(500).json({ error });
+        next(error)
     }
 
 })
 
-bookingController.delete("/:id", async (req: Request, res: Response, _next: NextFunction) => {
+bookingController.delete("/:id", async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     console.log(req.params.id)
     try {
         const bookingToDelete = await deleteBooking(id);
         res.json(bookingToDelete);
     } catch (error) {
-        console.error('An error ocurred', error);
-        res.status(500).json({ error });
+        next(error)
     }
 })
