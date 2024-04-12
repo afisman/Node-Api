@@ -4,43 +4,41 @@ import { Booking, BookingInterface } from '../interfaces/Booking';
 
 
 export const fetchAllBookings = async (): Promise<BookingInterface[]> => {
-    try {
-        return await Booking.find().populate("room");
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const bookings = await Booking.find().populate('room');
+    if (bookings === null) {
+        throw new AppError({ status: 404, message: "Bookings not found" });
     }
+    return bookings;
 }
 
 export const fetchSingleBooking = async (id: any): Promise<BookingInterface | null> => {
-    try {
-        return await Booking.findById(id).populate("room");
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const booking = await Booking.findById(id).populate('room');
+    if (booking === null) {
+        throw new AppError({ status: 404, message: "Booking not found" });
     }
+    return booking;
 }
 
 export const createBooking = async (data: BookingInterface): Promise<BookingInterface> => {
-    try {
-        const newBooking = new Booking(data);
-        await newBooking.save();
-        return newBooking.populate("room");
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const newBooking = await Booking.create(data);
+    if (newBooking === null) {
+        throw new AppError({ status: 404, message: "Booking could not be created" });
     }
+    return newBooking;
 }
 
 export const editBooking = async (id: any, data: BookingInterface): Promise<BookingInterface | null> => {
-    try {
-        return await Booking.findByIdAndUpdate(id, data, { new: true }).populate("room");
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const booking = await Booking.findByIdAndUpdate(id, data, { new: true }).populate('room');
+    if (booking === null) {
+        throw new AppError({ status: 404, message: "Booking not found" });
     }
+    return booking;
 }
 
 export const deleteBooking = async (id: any): Promise<BookingInterface | null> => {
-    try {
-        return await Booking.findByIdAndDelete(id);
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const booking = await Booking.findByIdAndDelete(id);
+    if (booking === null) {
+        throw new AppError({ status: 404, message: "Booking not found" });
     }
+    return booking;
 }
