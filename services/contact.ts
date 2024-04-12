@@ -3,45 +3,43 @@ import { AppError } from '../class/AppError';
 import { Contact, ContactInterface } from '../interfaces/Contact';
 
 export const fetchAllContacts = async (): Promise<ContactInterface[]> => {
-    try {
-        return await Contact.find();
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const contacts = await Contact.find();
+    if (contacts === null) {
+        throw new AppError({ status: 404, message: "Contacts not found" });
     }
+    return contacts;
 }
 
 export const fetchSingleContact = async (id: any): Promise<ContactInterface | null> => {
-    try {
-        return Contact.findById(id);
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const contact = await Contact.findById(id);
+    if (contact === null) {
+        throw new AppError({ status: 404, message: "Contact not found" });
     }
+    return contact;
 }
 
 export const createContact = async (data: ContactInterface): Promise<ContactInterface | null> => {
-
-    try {
-        const newContact = new Contact(data);
-        return await newContact.save();
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const contact = await Contact.create(data);
+    if (contact === null) {
+        throw new AppError({ status: 404, message: "Contact couldn't be created" });
     }
+    return contact;
 }
 
 export const editContact = async (id: any, data: ContactInterface): Promise<ContactInterface | null> => {
-    try {
-        return await Contact.findByIdAndUpdate(id, data, { new: true });
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const contact = await Contact.findByIdAndUpdate(id, data, { new: true });
+    if (contact === null) {
+        throw new AppError({ status: 404, message: "Contact not found" });
     }
+    return contact;
 }
 
 export const deleteContact = async (id: any): Promise<ContactInterface | null> => {
-    try {
-        return await Contact.findByIdAndDelete(id)
-    } catch (error) {
-        throw new AppError({ status: 500, message: "internal server error" })
+    const contact = await Contact.findByIdAndDelete(id);
+    if (contact === null) {
+        throw new AppError({ status: 404, message: "Contact couldn't be created" });
     }
+    return contact;
 }
 
 
