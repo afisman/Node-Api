@@ -5,9 +5,9 @@ import { fetchSingleContact } from '../services/contact';
 import { fetchSingleRoom } from '../services/room';
 import { fetchSingleBooking } from '../services/booking';
 import { mongoConnect } from '../mongoConfig';
-
-
-
+import { Booking, BookingInterface } from '../interfaces/Booking';
+import { Room, RoomInterface } from '../interfaces/Room';
+import { Contact, ContactInterface } from '../interfaces/Contact';
 
 const authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsZWZ0YXUiLCJpYXQiOjE3MTIwNzEyNjksImV4cCI6MTcyMDcxMTI2OX0.vDPJQB-ich5_n9B_tewv4ViWlOg_FeI-duod39aVPws";
 const malformedJWT = 'Hello world';
@@ -83,8 +83,10 @@ describe('Tests for bookings', () => {
             .set({ authorization: authToken })
             .send(bookingToUse)
         expect(res.statusCode).toEqual(200)
-        const singleBooking = await fetchSingleBooking(idToUse)
+        const singleBooking = await Booking.findById(idToUse)
+        //expect(res.body).toMatchObject(structuredClone(singleBooking) as BookingInterface)
         expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleBooking)))
+
     })
     it('should try to edit booking with correct token', async () => {
         const res = await request(app)
@@ -92,7 +94,9 @@ describe('Tests for bookings', () => {
             .set({ authorization: authToken })
             .send({ ...bookingToUse, name: "Rodney Stamm" })
         expect(res.statusCode).toEqual(200)
-        const singleBooking = await fetchSingleBooking(idToUse)
+        const singleBooking = await Booking.findById(idToUse).populate("room")
+        // expect(res.body).toMatchObject(structuredClone(singleBooking) as BookingInterface)
+
         expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleBooking)))
     })
 })
@@ -185,7 +189,9 @@ describe('Tests for rooms', () => {
             .set({ authorization: authToken })
             .send(roomToUse)
         expect(res.statusCode).toEqual(200)
-        const singleRoom = fetchSingleRoom(idToUse)
+        const singleRoom = await Room.findById(idToUse)
+        // expect(res.body).toMatchObject(structuredClone(singleRoom) as any)
+
         expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleRoom)))
     })
     it('should try to edit room with correct token', async () => {
@@ -195,8 +201,10 @@ describe('Tests for rooms', () => {
             .set({ authorization: authToken })
             .send(editedData)
         expect(res.statusCode).toEqual(200)
-        const singleRoom = fetchSingleRoom(idToUse)
+        const singleRoom = await Room.findById(idToUse)
+        // expect(res.body).toMatchObject(structuredClone(singleRoom) as any)
         expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleRoom)))
+
     })
 })
 
@@ -270,7 +278,8 @@ describe('Tests for contact', () => {
             .set({ authorization: authToken })
             .send(contactToUse)
         expect(res.statusCode).toEqual(200)
-        const singleContact = await fetchSingleContact(idToUse)
+        const singleContact = await Contact.findById(idToUse)
+        // expect(res.body).toMatchObject(structuredClone(singleContact) as ContactInterface)
         expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleContact)))
     })
     it('should try to edit contact with correct token', async () => {
@@ -280,8 +289,10 @@ describe('Tests for contact', () => {
             .set({ authorization: authToken })
             .send(editedData)
         expect(res.statusCode).toEqual(200)
-        const singleContact = await fetchSingleContact(idToUse)
+        const singleContact = await Contact.findById(idToUse)
+        //expect(res.body).toMatchObject(structuredClone(singleContact) as ContactInterface)
         expect(res.body).toMatchObject(JSON.parse(JSON.stringify(singleContact)))
+
     })
 })
 
