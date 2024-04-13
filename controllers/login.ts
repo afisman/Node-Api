@@ -1,7 +1,8 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { login } from '../services/login';
-import { generateAccessToken } from '../middleware/auth';
 import { AppError } from '../class/AppError';
+import { generateAccessToken } from '../util/generateAccessToken';
+
 
 export const loginController = express.Router();
 

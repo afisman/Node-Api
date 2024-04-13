@@ -9,8 +9,6 @@ interface AuthRequest extends Request {
     user?: any;
 }
 
-const privateKey: Secret = process.env.TOKEN_SECRET || "";
-
 export const authenticateToken = (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
         const authHeader = req.headers['authorization']
@@ -29,6 +27,3 @@ export const authenticateToken = (req: AuthRequest, res: Response, next: NextFun
     }
 }
 
-export const generateAccessToken = (username: string) => {
-    return jwt.sign({ username: username }, privateKey, { expiresIn: 8640000 });
-}

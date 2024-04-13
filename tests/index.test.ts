@@ -8,8 +8,11 @@ import { mongoConnect } from '../mongoConfig';
 import { Booking, BookingInterface } from '../interfaces/Booking';
 import { Room, RoomInterface } from '../interfaces/Room';
 import { Contact, ContactInterface } from '../interfaces/Contact';
+import { generateAccessToken } from '../util/generateAccessToken';
 
-const authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsZWZ0YXUiLCJpYXQiOjE3MTIwNzEyNjksImV4cCI6MTcyMDcxMTI2OX0.vDPJQB-ich5_n9B_tewv4ViWlOg_FeI-duod39aVPws";
+const token = generateAccessToken('afisman"mail.com')
+
+const authToken = `Bearer ${token}`;
 const malformedJWT = 'Hello world';
 
 
