@@ -17,7 +17,7 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors())
+app.use(cors());
 
 mongoConnect();
 
@@ -33,7 +33,7 @@ app.use('/contact', contactController);
 
 
 app.use((error: any, _req: Request, _res: Response, _next: NextFunction): any => {
-    throw new AppError({ status: error.status || 500, message: error.status ? error.message : "Internal server error" })
+    throw new AppError({ status: error.status || 500, message: error.status ? error.message : "Internal server error" });
 })
 
 

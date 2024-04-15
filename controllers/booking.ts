@@ -45,7 +45,6 @@ bookingController.put("/:id", async (req: Request, res: Response, next: NextFunc
 
 bookingController.delete("/:id", async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    console.log(req.params.id)
     try {
         const bookingToDelete = await deleteBooking(id);
         res.json(bookingToDelete);
