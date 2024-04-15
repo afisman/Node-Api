@@ -12,9 +12,6 @@ dotenv.config();
 const authToken = process.env.AUTH;
 const malformedJWT = 'Hello world';
 
-
-
-
 describe('Tests for bookings', () => {
     it('should try to create booking with no token', async () => {
         const res = await request(app)

@@ -8,6 +8,7 @@ import { pageController } from './controllers/page';
 import { mongoConnect } from './mongoConfig';
 import { authenticateToken } from './middleware/auth';
 import { AppError } from './class/AppError';
+import cors from 'cors';
 
 
 
@@ -15,6 +16,8 @@ export const app: Express = express();
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors())
 
 mongoConnect();
 
