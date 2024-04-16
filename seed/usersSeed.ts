@@ -7,6 +7,9 @@ import { hashPassword } from "../util/bcryptUtil";
 
 export const usersSeedDB = async () => {
     try {
+        await mongoConnect();
+
+
         await User.collection.drop();
 
         for (let i = 0; i < 15; i++) {
@@ -25,7 +28,7 @@ export const usersSeedDB = async () => {
                 position: faker.helpers.arrayElement(["Manager", "Reception", "Room Service"]),
                 password: hashedPassword
             })
-            console.log(rawPassword)
+            console.log(document.email, rawPassword)
             await document.save();
         }
 
@@ -33,3 +36,5 @@ export const usersSeedDB = async () => {
         console.log(err);
     }
 }
+
+usersSeedDB()

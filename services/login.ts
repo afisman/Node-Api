@@ -1,15 +1,17 @@
-import { User } from "../interfaces/User";
+import { User, UserInterface } from "../interfaces/User";
 import { compareHash } from "../util/bcryptUtil";
 
 
-export const login = async (userLogin: any): Promise<boolean> => {
+export const login = async (userLogin: any) => {
 
-    const userCheck = await User.findOne({ email: userLogin.email });
-    let isAuthenticated = false
+    // const userCheck = await User.findOne({ email: userLogin.email });
+    // let isAuthenticated = false
 
-    if (userCheck !== null) {
-        isAuthenticated = compareHash(userLogin.password, userCheck.password)
-    }
+    // if (userCheck !== null) {
+    //     isAuthenticated = compareHash(userLogin.password, userCheck.password)
+    // }
 
-    return isAuthenticated
+    // return isAuthenticated
+
+    return await User.findOne({ email: userLogin.email })
 }

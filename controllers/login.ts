@@ -10,10 +10,10 @@ loginController.post("/", async (req: Request, res: Response, next: NextFunction
     try {
         const { email, password } = req.body;
 
-        const loginAccepted = await login({ email: email, password: password });
-        if (loginAccepted === true) {
+        const user = await login({ email: email, password: password });
+        if (user) {
             const authToken = generateAccessToken(email);
-            res.json(authToken);
+            res.json({ token: authToken, email: user.email, full_name: user.full_name });
         } else {
             throw new AppError({ status: 401, message: "The user is unauthorized" });
         }
