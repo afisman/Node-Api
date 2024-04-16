@@ -1,8 +1,5 @@
-import mongoose from "mongoose";
 import { Room } from "../interfaces/Room";
 import { faker } from '@faker-js/faker';
-
-import { mongoConnect } from "../mongoConfig";
 
 export const roomsSeedDB = async () => {
     try {

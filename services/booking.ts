@@ -20,6 +20,7 @@ export const fetchSingleBooking = async (id: any): Promise<BookingInterface | nu
 }
 
 export const createBooking = async (data: BookingInterface): Promise<BookingInterface> => {
+    console.log(data, 'En el service')
     const newBooking = await Booking.create(data);
     if (newBooking === null) {
         throw new AppError({ status: 404, message: "Booking could not be created" });

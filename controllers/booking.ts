@@ -16,6 +16,7 @@ bookingController.get("/:id", async (req: Request, res: Response, next: NextFunc
     const { id } = req.params;
     try {
         const booking = await fetchSingleBooking(id);
+        console.log(booking, 'En el controller')
         res.json(booking);
     } catch (error) {
         next(error);

@@ -1,15 +1,9 @@
-import mongoose from "mongoose";
 import { faker } from '@faker-js/faker';
-
-import { mongoConnect } from "../mongoConfig";
 import { User } from "../interfaces/User";
 import { hashPassword } from "../util/bcryptUtil";
 
 export const usersSeedDB = async () => {
     try {
-        await mongoConnect();
-
-
         await User.collection.drop();
 
         for (let i = 0; i < 15; i++) {
@@ -37,4 +31,3 @@ export const usersSeedDB = async () => {
     }
 }
 
-usersSeedDB()
