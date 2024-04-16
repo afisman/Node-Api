@@ -10,14 +10,17 @@ import { authenticateToken } from './middleware/auth';
 import { AppError } from './class/AppError';
 import cors from 'cors';
 
-
-
 export const app: Express = express();
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
+app.use(cors({
+    origin: [
+        'http://localhost:3000',
+        'http://localhost:5173',
+        'https://miranda-dashboard-afsmn.s3-website.eu-west-3.amazonaws.com']
+}));
 
 mongoConnect();
 
