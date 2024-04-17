@@ -6,7 +6,7 @@ export interface ContactInterface {
     full_name: string;
     email: string;
     phone: string;
-    date: string;
+    date: number;
     message: string;
     rating: number;
     read: boolean;
@@ -17,7 +17,7 @@ const contactSchema = new Schema<ContactInterface>({
     full_name: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
-    date: { type: String, required: true },
+    date: { type: Number, required: true },
     message: { type: String, required: true },
     rating: { type: Number, required: true },
     read: { type: Boolean, required: true },

@@ -5,7 +5,7 @@ export interface UserInterface {
     contact: string
     email: string
     photo: string
-    start_date: string
+    start_date: number
     description: string
     status: string
     position: string,
@@ -17,7 +17,7 @@ const userSchema = new Schema<UserInterface>({
     contact: { type: String },
     email: { type: String },
     photo: { type: String },
-    start_date: { type: String },
+    start_date: { type: Number },
     description: { type: String },
     status: { type: String },
     position: { type: String, enum: ['Manager', 'Reception', 'Room Service'] },

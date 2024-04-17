@@ -23,10 +23,6 @@ export const contactsSeedDB = async () => {
             })
             await document.save();
         }
-
-
-
-
     } catch (err) {
         console.log(err);
     }

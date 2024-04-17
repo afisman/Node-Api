@@ -19,9 +19,9 @@ export const roomsSeedDB = async () => {
                 offer: offer,
                 room_floor: faker.number.int({ max: 21 }),
                 rate: faker.commerce.price({ min: 5000, max: 35000 }),
-                discount: offer === "YES" ? faker.number.int({ min: 10, max: 50 }).toString() : '0',
+                discount: offer === "Yes" ? faker.number.int({ min: 1, max: 99 }) : 0,
                 amenities: faker.helpers.arrayElements(amenities_list, { min: 1, max: amenities_list.length }),
-                status: "Available"
+                status: faker.helpers.arrayElement(["Available", "Booked"])
             })
             await document.save();
         }

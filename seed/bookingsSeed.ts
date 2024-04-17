@@ -8,8 +8,6 @@ import { Room } from "../interfaces/Room";
 export const bookingsSeedDB = async () => {
     try {
 
-        await mongoConnect();
-
         const roomArray = await Room.find();
 
         await Booking.collection.drop();
@@ -29,7 +27,7 @@ export const bookingsSeedDB = async () => {
                 room: roomArray[arrayIndex],
                 rate: roomArray[arrayIndex].rate,
                 special_request: faker.lorem.paragraph(3),
-                status: "Check In"
+                status: faker.helpers.arrayElement(["Check In", "Check Out"])
             });
             await document.save();
         }
@@ -38,5 +36,4 @@ export const bookingsSeedDB = async () => {
     }
 }
 
-bookingsSeedDB()
 
