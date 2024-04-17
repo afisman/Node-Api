@@ -19,7 +19,6 @@ export const fetchSingleRoom = async (id: any): Promise<RoomInterface | null> =>
 }
 
 export const createRoom = async (data: RoomInterface): Promise<RoomInterface> => {
-    console.log(data, "En el servicio")
     const room = await Room.create(data);
     if (room === null) {
         throw new AppError({ status: 404, message: "Room couldn't be created" });

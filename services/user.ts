@@ -1,7 +1,6 @@
 
 import { AppError } from '../class/AppError';
 import { User, UserInterface } from '../interfaces/User';
-import bcrypt from 'bcryptjs';
 import { compareHash, hashPassword } from '../util/bcryptUtil';
 
 

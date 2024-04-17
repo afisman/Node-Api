@@ -25,7 +25,6 @@ roomController.get("/:id", async (req: Request, res: Response, next: NextFunctio
 roomController.post("/", async (req: Request, res: Response, next: NextFunction) => {
     try {
         const newRoom = await createRoom(req.body);
-        console.log(newRoom, "En el controller")
         res.json(newRoom);
     } catch (error) {
         next(error);
