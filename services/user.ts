@@ -39,7 +39,7 @@ export const editUser = async (id: any, data: UserInterface): Promise<UserInterf
         throw new AppError({ status: 404, message: "User not found" });
     }
 
-    if (userExists && !compareHash(data.password, userExists.password)) {
+    if (userExists && !compareHash(data.password, userExists.password) && data.password != '') {
         const hashedPassword = hashPassword(data.password)
         return await User.findByIdAndUpdate(id, { ...data, password: hashedPassword }, { new: true })
     } else {

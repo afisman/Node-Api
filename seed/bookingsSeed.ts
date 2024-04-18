@@ -25,7 +25,7 @@ export const bookingsSeedDB = async () => {
                 check_out: checkOut.getTime(),
                 hour_check_out: faker.date.soon().toLocaleTimeString(),
                 room: roomArray[arrayIndex],
-                rate: roomArray[arrayIndex].rate,
+                discount: faker.number.int({ min: 1, max: 99 }),
                 special_request: faker.lorem.paragraph(3),
                 status: faker.helpers.arrayElement(["Check In", "Check Out"])
             });
