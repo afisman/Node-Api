@@ -174,7 +174,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/miranda-backend/dev/1713262122691-2024-04-16T10:08:42.691Z/miranda-backend.zip"
+                "S3Key": "serverless/miranda-backend/dev/1713468697348-2024-04-18T19:31:37.348Z/miranda-backend.zip"
               },
               "Handler": "dist/lambda.handler",
               "Runtime": "nodejs18.x",
@@ -192,14 +192,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionbWSxazz7O0sTcOUXIVpMqTTI8QTUEMn65dhjkV8hiU": {
+          "AppLambdaVersionOXcSSYOxff2cXBDXsMHuZ3Zc0KJAcqDvkjOnpdPmSh4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "VE8zWjxse2iY+FEKsnNAsC2uv/30oi52bCL0BHQNBc8="
+              "CodeSha256": "kFCoKZ/DlaoocsQBQnBb541tjQLJWTtltgzxUiaLu+U="
             }
           },
           "ApiGatewayRestApi": {
@@ -417,7 +417,7 @@
               "AppLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1713262077437": {
+          "ApiGatewayDeployment1713468608006": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -482,7 +482,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionbWSxazz7O0sTcOUXIVpMqTTI8QTUEMn65dhjkV8hiU"
+              "Ref": "AppLambdaVersionOXcSSYOxff2cXBDXsMHuZ3Zc0KJAcqDvkjOnpdPmSh4"
             },
             "Export": {
               "Name": "sls-miranda-backend-dev-AppLambdaFunctionQualifiedArn"
@@ -660,7 +660,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersionbWSxazz7O0sTcOUXIVpMqTTI8QTUEMn65dhjkV8hiU"
+        "versionLogicalId": "AppLambdaVersionOXcSSYOxff2cXBDXsMHuZ3Zc0KJAcqDvkjOnpdPmSh4"
       }
     },
     "configValidationMode": "warn",
@@ -679,7 +679,7 @@
         ],
         "artifactsS3KeyDirname": "serverless/miranda-backend/dev/code-artifacts",
         "artifact": "C:\\Users\\afism\\Documents\\Luis\\OXYGEN\\Node-api\\.serverless\\miranda-backend.zip",
-        "artifactDirectoryName": "serverless/miranda-backend/dev/1713262122691-2024-04-16T10:08:42.691Z"
+        "artifactDirectoryName": "serverless/miranda-backend/dev/1713468697348-2024-04-18T19:31:37.348Z"
       },
       "provider": {
         "$ref": "$[\"service\"][\"provider\"]"
@@ -693,7 +693,7 @@
     "artifact": "C:\\Users\\afism\\Documents\\Luis\\OXYGEN\\Node-api\\.serverless\\miranda-backend.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/miranda-backend/dev/1713262122691-2024-04-16T10:08:42.691Z",
+    "artifactDirectoryName": "serverless/miranda-backend/dev/1713468697348-2024-04-18T19:31:37.348Z",
     "artifact": "miranda-backend.zip"
   }
 }
