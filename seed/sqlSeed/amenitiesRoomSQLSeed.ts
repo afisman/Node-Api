@@ -15,11 +15,20 @@ async function amenitiesRoomSQLSeed() {
         const amenities = amenitiesId.map((row: any) => row._id);
 
 
-        let query = `INSERT INTO room_amenity (url, room_id) VALUES `;
+        let query = `INSERT INTO room_amenity (room_id, amenity_id) VALUES `;
 
         for (let i = 0; i < rooms.length; i++) {
+            let arr = faker.helpers.arrayElements(amenities);
+            let amQuery = ``;
 
+            for (let j = 0; j < arr.length; j++) {
+                amQuery += `("${rooms[i]}", "${arr[j]}"), \n`
+
+            }
+            query += amQuery
         }
+        query = query.substring(0, query.length - 3) + ";"
+        console.log(query)
 
         currentConnection.query(query);
     } catch (error) {
