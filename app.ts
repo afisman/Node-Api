@@ -5,7 +5,7 @@ import { userController } from './controllers/user';
 import { contactController } from './controllers/contact';
 import { loginController } from './controllers/login';
 import { pageController } from './controllers/page';
-import { mongoConnect } from './mongoConfig';
+import { mongoConnect } from './databaseConfig';
 import { authenticateToken } from './middleware/auth';
 import { AppError } from './class/AppError';
 import cors from 'cors';

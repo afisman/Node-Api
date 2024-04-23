@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { mongoConnect } from "../mongoConfig";
+import { mongoConnect } from "../databaseConfig";
 import { bookingsSeedDB } from "./bookingsSeed";
 import { contactsSeedDB } from "./contactsSeed";
 import { roomsSeedDB } from "./roomsSeed";

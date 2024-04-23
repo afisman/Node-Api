@@ -9,7 +9,7 @@ export interface ContactInterface {
     date: number;
     message: string;
     rating: number;
-    read: boolean;
+    is_read: boolean;
 }
 
 const contactSchema = new Schema<ContactInterface>({
@@ -20,7 +20,7 @@ const contactSchema = new Schema<ContactInterface>({
     date: { type: Number, required: true },
     message: { type: String, required: true },
     rating: { type: Number, required: true },
-    read: { type: Boolean, required: true },
+    is_read: { type: Boolean, required: true },
 },
     {
         timestamps: true,
