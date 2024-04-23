@@ -1,12 +1,13 @@
 import { Room } from "../interfaces/Room";
 import { faker } from '@faker-js/faker';
+import { amenities_list } from "../util/constants";
+
 
 export const roomsSeedDB = async () => {
     try {
 
         await Room.collection.drop();
 
-        const amenities_list = ['Breakfast', 'Smart Security', 'Locker', 'Shower', '24/7 Online Support', 'Kitchen', 'Cleaning', 'High Speed Wifi', 'Air Conditioner', 'Towels', 'Grocery', 'Single Bed', 'Shop Near', 'Terrace', 'Double Bed', 'Room Service'];
 
         for (let i = 0; i < 15; i++) {
             const offer = faker.helpers.arrayElement(["Yes", "No"])

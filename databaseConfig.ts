@@ -26,17 +26,18 @@ export async function mongoConnect(host = null) {
 
 const SQL_USER: string = process.env.SQL_USERNAME as string;
 const SQL_PASSWORD: string = process.env.SQL_PASSWORD as string;
-const SQL_DATABASE: string = process.env.DB_NAME as string;
-const HOST: string = process.env.HOST as string;
+const SQL_DATABASE: string = process.env.SQL_DB_NAME as string;
+const SQL_HOST: string = process.env.SQL_HOST as string;
 
 const pool = mysql.createPool({
-    host: HOST,
+    host: SQL_HOST,
     user: SQL_USER,
     database: SQL_DATABASE,
     password: SQL_PASSWORD
 });
 
 export async function sqlConnect() {
+    console.log('connected')
     return await pool.getConnection();
 }
 
