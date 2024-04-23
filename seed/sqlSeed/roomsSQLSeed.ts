@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import { dropQuery } from "../../util/queries";
 import { roomCreateQuery } from "../../util/queryArgs";
 import { sqlConnect } from "../../databaseConfig";
+import { exit } from 'process';
 
 
 async function roomsSQLSeed() {
@@ -36,7 +37,8 @@ async function roomsSQLSeed() {
     } catch (error) {
         console.log(error);
     } finally {
-        currentConnection?.release()
+        currentConnection?.release();
+        exit(1);
     }
 };
 

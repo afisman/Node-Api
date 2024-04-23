@@ -26,5 +26,5 @@ export const dropQuery = async (connection: PoolConnection) => {
         await connection.query(query + ';');
     }
 
-    console.log('Done')
+    console.log('Done');
 }

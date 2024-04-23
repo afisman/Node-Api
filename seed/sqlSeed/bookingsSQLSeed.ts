@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import { dropQuery, sqlQuery } from "../../util/queries";
 import { bookingsCreateQuery } from "../../util/queryArgs";
 import { sqlConnect } from "../../databaseConfig";
+import { exit } from 'process'
 
 async function bookingsSeedDB() {
     let currentConnection;
@@ -9,12 +10,11 @@ async function bookingsSeedDB() {
     try {
 
         currentConnection = await sqlConnect();
-        await dropQuery(currentConnection);
+        // await dropQuery(currentConnection);
 
         await sqlQuery(bookingsCreateQuery);
 
         const roomIds = await sqlQuery("Select _id FROM room");
-        console.log(roomIds);
         const rooms = roomIds.map((row: any) => row._id)
 
         for (let i = 0; i < 15; i++) {
@@ -32,8 +32,8 @@ async function bookingsSeedDB() {
                 [
                     name,
                     faker.date.past({ years: 1, refDate: checkIn }),
-                    checkIn.getTime(),
-                    checkOut.getTime(),
+                    checkIn,
+                    checkOut,
                     faker.date.soon().toLocaleTimeString(),
                     faker.date.soon().toLocaleTimeString(),
                     faker.number.int({ min: 1, max: 99 }),
@@ -45,6 +45,9 @@ async function bookingsSeedDB() {
         }
     } catch (error) {
         console.log(error)
+    } finally {
+        currentConnection?.release();
+        exit(1);
     }
 }
 
