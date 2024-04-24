@@ -22,9 +22,9 @@ async function SQLseedDB() {
         await bookingsSeedDB(currentConnection);
         await amenitiesSQLSeed(currentConnection);
         await amenitiesRoomSQLSeed(currentConnection);
-        await photosSQLSeed(currentConnection)
+        await photosSQLSeed(currentConnection);
     } catch (error) {
-        currentConnection?.rollback()
+        currentConnection?.rollback();
         console.error(error);
     } finally {
         currentConnection?.release();

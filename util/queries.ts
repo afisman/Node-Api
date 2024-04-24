@@ -8,7 +8,11 @@ export const sqlQuery = async (
     params?: any[]
 ): Promise<any> => {
     const connection = await sqlConnect();
-    const [results] = await connection.execute(sqlQuery, params);
+    const preparedConnection = await connection.prepare(sqlQuery);
+
+    const [results] = await preparedConnection.execute(params);
+    preparedConnection.close();
+    connection.unprepare(sqlQuery);
     connection.release();
     return results;
 };
