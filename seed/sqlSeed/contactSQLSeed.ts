@@ -52,7 +52,6 @@ async function contactSQLSeed() {
             //     ]
             // );
         }
-        console.log(query);
         await currentConnection.query(query);
     } catch (error) {
         console.log(error);

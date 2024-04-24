@@ -30,7 +30,7 @@ async function photosSQLSeed() {
             query += photoQuery + "\n";
         }
 
-        currentConnection.query(query);
+        await currentConnection.query(query);
     } catch (error) {
         console.log(error);
     } finally {

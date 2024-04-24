@@ -28,9 +28,8 @@ async function amenitiesRoomSQLSeed() {
             query += amQuery
         }
         query = query.substring(0, query.length - 3) + ";"
-        console.log(query)
 
-        currentConnection.query(query);
+        await currentConnection.query(query);
     } catch (error) {
         console.log(error);
     } finally {
