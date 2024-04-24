@@ -4,26 +4,28 @@ import { roomCreateQuery } from "../../util/queryArgs";
 import { sqlConnect } from "../../databaseConfig";
 import { amenities_list } from "../../util/constants";
 import { exit } from 'process';
+import { PoolConnection } from "mysql2/promise";
 
 
 
-async function amenitiesSQLSeed() {
-    let currentConnection;
+export async function amenitiesSQLSeed(currentConnection: PoolConnection) {
     try {
-        currentConnection = await sqlConnect();
-
-        await dropQuery(currentConnection);
+        let query = `
+        INSERT INTO amenity(name) VALUES
+        `;
 
         for (let i = 0; i < amenities_list.length; i++) {
-            await currentConnection.query(`INSERT INTO amenity(name) VALUES("${amenities_list[i]}")`)
+            query += `("${amenities_list[i]}")`
+            if (i !== (amenities_list.length - 1)) {
+                query += ", \n";
+            } else {
+                query += "; \n"
+            }
         }
-
+        await currentConnection.query(query)
     } catch (error) {
-        console.log(error);
-    } finally {
-        currentConnection?.release();
-        exit(1);
+        console.error(error);
     }
+
 };
 
-amenitiesSQLSeed();

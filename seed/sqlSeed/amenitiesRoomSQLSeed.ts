@@ -2,12 +2,10 @@ import { faker } from "@faker-js/faker";
 import { dropQuery, sqlQuery } from "../../util/queries";
 import { sqlConnect } from "../../databaseConfig";
 import { exit } from 'process';
+import { PoolConnection } from "mysql2/promise";
 
-async function amenitiesRoomSQLSeed() {
-    let currentConnection;
+export async function amenitiesRoomSQLSeed(currentConnection: PoolConnection) {
     try {
-        currentConnection = await sqlConnect();
-
         const roomId = await sqlQuery("Select _id FROM room");
         const rooms = roomId.map((row: any) => row._id);
 
@@ -31,11 +29,7 @@ async function amenitiesRoomSQLSeed() {
 
         await currentConnection.query(query);
     } catch (error) {
-        console.log(error);
-    } finally {
-        currentConnection?.release();
-        exit(1);
+        console.error(error);
     }
 };
 
-amenitiesRoomSQLSeed();

@@ -2,15 +2,13 @@ import { faker } from "@faker-js/faker";
 import { dropQuery, sqlQuery } from "../../util/queries";
 import { sqlConnect } from "../../databaseConfig";
 import { exit } from 'process';
+import { PoolConnection } from "mysql2/promise";
 
 
 
 
-async function photosSQLSeed() {
-    let currentConnection;
+export async function photosSQLSeed(currentConnection: PoolConnection) {
     try {
-        currentConnection = await sqlConnect();
-
         const roomIds = await sqlQuery("Select _id FROM room");
         const rooms = roomIds.map((row: any) => row._id);
 
@@ -32,11 +30,6 @@ async function photosSQLSeed() {
 
         await currentConnection.query(query);
     } catch (error) {
-        console.log(error);
-    } finally {
-        currentConnection?.release();
-        exit(1);
+        console.error(error);
     }
 };
-
-photosSQLSeed();

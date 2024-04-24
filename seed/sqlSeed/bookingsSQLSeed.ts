@@ -3,17 +3,11 @@ import { dropQuery, sqlQuery } from "../../util/queries";
 import { bookingsCreateQuery } from "../../util/queryArgs";
 import { sqlConnect } from "../../databaseConfig";
 import { exit } from 'process'
+import { PoolConnection } from "mysql2/promise";
 
-async function bookingsSeedDB() {
-    let currentConnection;
+export async function bookingsSeedDB(currentConnection: PoolConnection) {
 
     try {
-
-        currentConnection = await sqlConnect();
-        // await dropQuery(currentConnection);
-
-        await sqlQuery(bookingsCreateQuery);
-
         const roomIds = await sqlQuery("Select _id FROM room");
         const rooms = roomIds.map((row: any) => row._id)
 
@@ -45,31 +39,11 @@ async function bookingsSeedDB() {
             } else {
                 query += "; \n"
             }
-
-
-            // await currentConnection.query(`INSERT INTO booking 
-            // (name, order_date, check_in, check_out, hour_check_in, hour_check_out, discount, special_request, status, room)
-            // VALUES(?,?,?,?,?,?,?,?,?,?)`,
-            //     [
-            //         name,
-            //         faker.date.past({ years: 1, refDate: checkIn }),
-            //         checkIn,
-            //         checkOut,
-            //         faker.date.soon().toLocaleTimeString(),
-            //         faker.date.soon().toLocaleTimeString(),
-            //         faker.number.int({ min: 1, max: 99 }),
-            //         faker.lorem.paragraph(3),
-            //         faker.helpers.arrayElement(["Check In", "Check Out"]),
-            //         idRoom
-            //     ])
         }
         await currentConnection.query(query)
     } catch (error) {
-        console.log(error)
-    } finally {
-        currentConnection?.release();
-        exit(1);
+        console.error(error)
     }
+
 }
 
-bookingsSeedDB();

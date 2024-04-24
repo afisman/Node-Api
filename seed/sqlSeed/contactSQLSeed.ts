@@ -3,22 +3,15 @@ import { dropQuery } from "../../util/queries";
 import { contactCreateQuery } from "../../util/queryArgs";
 import { sqlConnect } from "../../databaseConfig";
 import { exit } from 'process';
+import { PoolConnection } from "mysql2/promise";
 
 
 
-async function contactSQLSeed() {
-    let currentConnection;
+export async function contactSQLSeed(currentConnection: PoolConnection) {
     try {
-        currentConnection = await sqlConnect();
-
-        // await dropQuery(currentConnection);
-
-        await currentConnection.query(contactCreateQuery);
-
         let query = ` INSERT INTO contact 
             (image, full_name, email, phone, date, message, rating, is_read)
             VALUES `
-
         for (let i = 0; i < 15; i++) {
 
             query += `("${faker.image.avatar()}",
@@ -30,35 +23,15 @@ async function contactSQLSeed() {
                     "${faker.number.int({ min: 1, max: 5 })}",
                     ${false}
                 )`;
-
             if (i !== 14) {
                 query += ", \n";
             } else {
                 query += "; \n";
             }
-            // await currentConnection.query(`
-            // INSERT INTO contact 
-            // (image, full_name, email, phone, date, message, rating, is_read)
-            // VALUES (?,?,?,?,?,?,?,?)`
-            //     , [
-            //         faker.image.avatar(),
-            //         faker.person.fullName(),
-            //         faker.internet.email(),
-            //         faker.phone.number(),
-            //         faker.date.past({ years: 1, refDate: '2024-04-01' }),
-            //         faker.lorem.paragraphs(2),
-            //         faker.number.int({ min: 1, max: 5 }),
-            //         false
-            //     ]
-            // );
         }
         await currentConnection.query(query);
     } catch (error) {
-        console.log(error);
-    } finally {
-        currentConnection?.release();
-        exit(1);
+        console.error(error);
     }
 };
 
-contactSQLSeed();

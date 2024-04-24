@@ -4,16 +4,11 @@ import { userCreateQuery } from "../../util/queryArgs";
 import { sqlConnect } from "../../databaseConfig";
 import { hashPassword } from "../../util/bcryptUtil";
 import { exit } from 'process';
+import { PoolConnection } from "mysql2/promise";
 
 
-async function userSQLSeed() {
-    let currentConnection;
+export async function userSQLSeed(currentConnection: PoolConnection) {
     try {
-        currentConnection = await sqlConnect();
-
-        // await dropQuery(currentConnection);
-
-        await currentConnection.query(userCreateQuery);
         let query = `INSERT INTO employee 
             ( full_name, contact, email, photo, start_date, description, status, position, password)
             VALUES `
@@ -39,33 +34,10 @@ async function userSQLSeed() {
             } else {
                 query += "; \n";
             }
-
-
-            // await currentConnection.query(`
-            // INSERT INTO employee 
-            // ( full_name, contact, email, photo, start_date, description, status, position, password)
-            // VALUES (?,?,?,?,?,?,?,?, ?)`
-            //     , [
-            //         faker.person.fullName(),
-            //         faker.phone.number().toString(),
-            //         faker.internet.email(),
-            //         faker.image.avatar(),
-            //         faker.date.past({ years: 10, refDate: '2024-04-01' }),
-            //         faker.lorem.paragraph(2),
-            //         true,
-            //         faker.helpers.arrayElement(["Manager", "Reception", "Room Service"]),
-            //         hashedPassword
-            //     ]
-            // );
         }
         console.log(query);
         await currentConnection.query(query);
     } catch (error) {
-        console.log(error);
-    } finally {
-        currentConnection?.release();
-        exit(1);
+        console.error(error);
     }
 };
-
-userSQLSeed();
