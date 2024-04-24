@@ -17,6 +17,10 @@ async function bookingsSeedDB() {
         const roomIds = await sqlQuery("Select _id FROM room");
         const rooms = roomIds.map((row: any) => row._id)
 
+        let query = `INSERT INTO booking
+        (name, order_date, check_in, check_out, hour_check_in, hour_check_out, discount, special_request, status, room)
+        VALUES `
+
         for (let i = 0; i < 15; i++) {
             const name = faker.person.fullName();
             const checkIn = faker.date.soon({ days: 365, refDate: '2024-04-01' });
@@ -26,23 +30,40 @@ async function bookingsSeedDB() {
             const idRoom = rooms[randomIndex];
             rooms.splice(randomIndex, 1);
 
-            await currentConnection.query(`INSERT INTO booking 
-            (name, order_date, check_in, check_out, hour_check_in, hour_check_out, discount, special_request, status, room)
-            VALUES(?,?,?,?,?,?,?,?,?,?)`,
-                [
-                    name,
-                    faker.date.past({ years: 1, refDate: checkIn }),
-                    checkIn,
-                    checkOut,
-                    faker.date.soon().toLocaleTimeString(),
-                    faker.date.soon().toLocaleTimeString(),
-                    faker.number.int({ min: 1, max: 99 }),
-                    faker.lorem.paragraph(3),
-                    faker.helpers.arrayElement(["Check In", "Check Out"]),
-                    idRoom
-                ])
+            query += `( "${name}",
+                    "${faker.date.past({ years: 1, refDate: checkIn }).toISOString().slice(0, 19)}",
+                    "${checkIn.toISOString().slice(0, 19)}",
+                    "${checkOut.toISOString().slice(0, 19)}",
+                    "${faker.date.soon().toLocaleTimeString()}",
+                    "${faker.date.soon().toLocaleTimeString()}",
+                    "${faker.number.int({ min: 1, max: 99 })}",
+                    "${faker.lorem.paragraph(3)}",
+                    "${faker.helpers.arrayElement(["Check In", "Check Out"])}",
+                    "${idRoom}")`
+            if (i !== 14) {
+                query += ", \n"
+            } else {
+                query += "; \n"
+            }
 
+
+            // await currentConnection.query(`INSERT INTO booking 
+            // (name, order_date, check_in, check_out, hour_check_in, hour_check_out, discount, special_request, status, room)
+            // VALUES(?,?,?,?,?,?,?,?,?,?)`,
+            //     [
+            //         name,
+            //         faker.date.past({ years: 1, refDate: checkIn }),
+            //         checkIn,
+            //         checkOut,
+            //         faker.date.soon().toLocaleTimeString(),
+            //         faker.date.soon().toLocaleTimeString(),
+            //         faker.number.int({ min: 1, max: 99 }),
+            //         faker.lorem.paragraph(3),
+            //         faker.helpers.arrayElement(["Check In", "Check Out"]),
+            //         idRoom
+            //     ])
         }
+        await currentConnection.query(query)
     } catch (error) {
         console.log(error)
     } finally {
