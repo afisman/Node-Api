@@ -1,22 +1,28 @@
 
 import { AppError } from '../class/AppError';
 import { Booking, BookingInterface } from '../interfaces/Booking';
+import { sqlQuery } from '../util/queries';
+import { findAllBookingsQuery, findOneBookingQuery } from '../util/queryArgs';
 
 
 export const fetchAllBookings = async (): Promise<BookingInterface[]> => {
-    const bookings = await Booking.find().populate('room');
-    if (bookings === null) {
-        throw new AppError({ status: 404, message: "Bookings not found" });
-    }
+    const bookings = await sqlQuery(findAllBookingsQuery);
     return bookings;
+    // const bookings = await Booking.find().populate('room');
+    // if (bookings === null) {
+    //     throw new AppError({ status: 404, message: "Bookings not found" });
+    // }
+    // return bookings;
 }
 
 export const fetchSingleBooking = async (id: any): Promise<BookingInterface | null> => {
-    const booking = await Booking.findById(id).populate('room');
-    if (booking === null) {
-        throw new AppError({ status: 404, message: "Booking not found" });
-    }
-    return booking;
+    const booking = await sqlQuery(findOneBookingQuery, [id]);
+    return booking
+    // const booking = await Booking.findById(id).populate('room');
+    // if (booking === null) {
+    //     throw new AppError({ status: 404, message: "Booking not found" });
+    // }
+    // return booking;
 }
 
 export const createBooking = async (data: BookingInterface): Promise<BookingInterface> => {
