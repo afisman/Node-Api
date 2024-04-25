@@ -25,10 +25,11 @@ export const fetchSingleRoom = async (id: any): Promise<RoomInterface | null> =>
 }
 
 export const createRoom = async (data: RoomInterface): Promise<RoomInterface> => {
+    console.log(data)
     const createRoom = await sqlQuery(
         `INSERT INTO room
             (room_type,room_number,description,offer,room_floor,rate,discount,status)
-            VALUES 
+            VALUES (?,?,?,?,?,?,?,?)
         `, [
         data.room_type,
         data.room_number,
@@ -40,6 +41,7 @@ export const createRoom = async (data: RoomInterface): Promise<RoomInterface> =>
         data.status
     ]);
 
+
     return createRoom;
     // const room = await Room.create(data);
     // if (room === null) {
@@ -50,19 +52,51 @@ export const createRoom = async (data: RoomInterface): Promise<RoomInterface> =>
 }
 
 export const editRoom = async (id: any, data: RoomInterface): Promise<RoomInterface | null> => {
-    const room = await Room.findByIdAndUpdate(id, data, { new: true });
-    if (room === null) {
-        throw new AppError({ status: 404, message: "Room not found" });
+    const keys: string[] = [];
+    const values: any[] = [];
+
+    for (let property in data) {
+        keys.push(property);
+        if (property === 'discount' || property === 'rate') {
+            values.push(Number(data[property]));
+        } else {
+            values.push(data[property as keyof RoomInterface]);
+        }
     }
-    return room;
+
+    const updateColumn: string = keys
+        .map((key: string) => `${key} = ?`)
+        .join(", ");
+
+    const updateRoom = await sqlQuery(
+        `
+    UPDATE room
+    set ${updateColumn}
+    WHERE _id=?
+    `,
+        [...values, id]
+    );
+
+    return updateRoom;
+
+    // const room = await Room.findByIdAndUpdate(id, data, { new: true });
+    // if (room === null) {
+    //     throw new AppError({ status: 404, message: "Room not found" });
+    // }
+    // return room;
 
 }
 
 export const deleteRoom = async (id: any): Promise<RoomInterface | null> => {
-    const room = await Room.findByIdAndDelete(id);
-    if (room === null) {
-        throw new AppError({ status: 404, message: "Room not found" });
-    }
+    const room = await sqlQuery(`
+    DELETE FROM room
+    WHERE _id = ?
+    `, [id]);
     return room;
+    // const room = await Room.findByIdAndDelete(id);
+    // if (room === null) {
+    //     throw new AppError({ status: 404, message: "Room not found" });
+    // }
+    // return room;
 }
 

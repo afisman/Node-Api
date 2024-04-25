@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS booking (
     special_request VARCHAR(255),
     status VARCHAR(255),
     room INT NOT NULL,
-    FOREIGN KEY (room) REFERENCES room(_id),
+    FOREIGN KEY (room) REFERENCES room(_id) ON DELETE CASCADE,
     PRIMARY KEY (_id)
 );
 
@@ -134,8 +134,8 @@ CREATE TABLE IF NOT EXISTS room_amenity(
 	_id INT AUTO_INCREMENT NOT NULL,
     room_id INT NOT NULL,
     amenity_id INT NOT NULL,
-    FOREIGN KEY (room_id) REFERENCES room(_id),
-    FOREIGN KEY (amenity_id) REFERENCES amenity(_id),
+    FOREIGN KEY (room_id) REFERENCES room(_id) ON DELETE CASCADE,
+    FOREIGN KEY (amenity_id) REFERENCES amenity(_id) ON DELETE CASCADE,
     PRIMARY KEY (_id)
 );
 
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS photo (
 	_id INT AUTO_INCREMENT NOT NULL,
     url VARCHAR(500),
     room_id INT NOT NULL,
-    FOREIGN KEY (room_id) REFERENCES room(_id),
+    FOREIGN KEY (room_id) REFERENCES room(_id) ON DELETE CASCADE,
 	PRIMARY KEY (_id)
 );
 `;
@@ -289,7 +289,7 @@ LEFT JOIN room ON room._id = booking.room
             FROM photo
             GROUP BY photo.room_id
         ) AS photos ON photos.room_id = room._id
-        WHERE room._id = ?
+        WHERE room._id = booking.room AND booking._id = ?
 
         GROUP BY booking._id
 `

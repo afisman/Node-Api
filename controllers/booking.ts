@@ -38,6 +38,7 @@ bookingController.put("/:id", async (req: Request, res: Response, next: NextFunc
         const bookingToEdit = await editBooking(id, req.body);
         res.json(bookingToEdit);
     } catch (error) {
+        console.log(error)
         next(error);
     }
 
