@@ -5,9 +5,7 @@ import { sqlQuery } from '../util/queries';
 import { findAllRoomsQuery, findOneRoomQuery } from '../util/queryArgs';
 
 export const fetchAllRooms = async (): Promise<RoomInterface[]> => {
-    console.log('In rooms')
-    const rooms = await sqlQuery(findAllRoomsQuery)
-    console.log(rooms);
+    const rooms = await sqlQuery(findAllRoomsQuery);
     return rooms;
     // const rooms = await Room.find();
     // if (rooms === null) {
@@ -18,7 +16,6 @@ export const fetchAllRooms = async (): Promise<RoomInterface[]> => {
 
 export const fetchSingleRoom = async (id: any): Promise<RoomInterface | null> => {
     const room = await sqlQuery(findOneRoomQuery, [id]);
-    console.log(room);
     return room;
     // const room = await Room.findById(id);
     // if (room === null) {
@@ -28,12 +25,28 @@ export const fetchSingleRoom = async (id: any): Promise<RoomInterface | null> =>
 }
 
 export const createRoom = async (data: RoomInterface): Promise<RoomInterface> => {
-    const room = await Room.create(data);
-    if (room === null) {
-        throw new AppError({ status: 404, message: "Room couldn't be created" });
-    }
+    const createRoom = await sqlQuery(
+        `INSERT INTO room
+            (room_type,room_number,description,offer,room_floor,rate,discount,status)
+            VALUES 
+        `, [
+        data.room_type,
+        data.room_number,
+        data.description,
+        data.offer,
+        data.room_floor,
+        Number(data.rate),
+        Number(data.discount),
+        data.status
+    ]);
 
-    return room;
+    return createRoom;
+    // const room = await Room.create(data);
+    // if (room === null) {
+    //     throw new AppError({ status: 404, message: "Room couldn't be created" });
+    // }
+
+    // return room;
 }
 
 export const editRoom = async (id: any, data: RoomInterface): Promise<RoomInterface | null> => {

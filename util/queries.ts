@@ -1,5 +1,5 @@
 import { Connection } from "mysql2/typings/mysql/lib/Connection";
-import { sqlConnect } from "../databaseConfig";
+import { sqlConnect, sqlDisconnect } from "../databaseConfig";
 import { longQuery } from "./queryArgs";
 import { PoolConnection } from "mysql2/promise";
 
@@ -13,7 +13,7 @@ export const sqlQuery = async (
     const [results] = await preparedConnection.execute(params);
     preparedConnection.close();
     connection.unprepare(sqlQuery);
-    connection.release();
+    sqlDisconnect(connection);
     return results;
 };
 

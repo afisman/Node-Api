@@ -32,27 +32,37 @@ export const fetchSingleUser = async (id: any): Promise<UserInterface | null> =>
 
 }
 
-export const createUser = async (data: UserInterface): Promise<UserInterface> => {
-    const rawPassword = data.password;
-    const hashedPassword: string = hashPassword(rawPassword);
+export const createUser = async (data: UserInterface): Promise<UserInterface | null> => {
+    const userExists = await sqlQuery(`
+    SELECT *from employee
+    WHERE email = ${data.email};
+    `)
 
-    const user = await sqlQuery(`
-    INSERT INTO employee 
-            (full_name, contact, email, photo, start_date, description, status, position, password)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `, [
-        data.full_name,
-        data.contact,
-        data.email,
-        data.photo,
-        new Date(data.start_date).toISOString().slice(0, 19),
-        data.description,
-        data.status,
-        data.position,
-        hashedPassword
-    ]);
+    let user
 
-    return user;
+    if (!userExists) {
+        const rawPassword = data.password;
+        const hashedPassword: string = hashPassword(rawPassword);
+
+        user = await sqlQuery(`
+        INSERT INTO employee 
+                (full_name, contact, email, photo, start_date, description, status, position, password)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `, [
+            data.full_name,
+            data.contact,
+            data.email,
+            data.photo,
+            new Date(data.start_date).toISOString().slice(0, 19),
+            data.description,
+            data.status,
+            data.position,
+            hashedPassword
+        ]);
+    }
+
+
+    return user ? user : null;
 
     // const newUser = await User.create({ ...data, password: hashedPassword })
     // if (newUser === null) {
@@ -62,18 +72,48 @@ export const createUser = async (data: UserInterface): Promise<UserInterface> =>
 }
 
 export const editUser = async (id: any, data: UserInterface): Promise<UserInterface | null> => {
-    const userExists = await User.findById(id);
+    const userExists = await sqlQuery(
+        `SELECT * from employee
+        WHERE _id = ${Number(id)};`
+    );
+
+    const keys: string[] = Object.keys(data);
+    const values: string[] = Object.values(data);
+
+    const updateColumn = keys.map((key: string) => `${key} = ?`).join(", ");
 
     if (userExists === null) {
         throw new AppError({ status: 404, message: "User not found" });
     }
-
+    let user
     if (userExists && !compareHash(data.password, userExists.password) && data.password != '') {
         const hashedPassword = hashPassword(data.password)
-        return await User.findByIdAndUpdate(id, { ...data, password: hashedPassword }, { new: true })
+        values.pop()
+        user = await sqlQuery(`UPDATE contact
+    set ${updateColumn}
+    WHERE _id = ?
+    `, [...values, hashedPassword, id])
     } else {
-        return await User.findByIdAndUpdate(id, { ...data, password: userExists.password }, { new: true });
+        user = await sqlQuery(`UPDATE contact
+    set ${updateColumn}
+    WHERE _id = ?
+    `, [...values, id])
     }
+
+    return user
+
+    // const userExists = await User.findById(id);
+
+    // if (userExists === null) {
+    //     throw new AppError({ status: 404, message: "User not found" });
+    // }
+
+    // if (userExists && !compareHash(data.password, userExists.password) && data.password != '') {
+    //     const hashedPassword = hashPassword(data.password)
+    //     return await User.findByIdAndUpdate(id, { ...data, password: hashedPassword }, { new: true })
+    // } else {
+    //     return await User.findByIdAndUpdate(id, { ...data, password: userExists.password }, { new: true });
+    // }
 }
 
 export const deleteUser = async (id: any): Promise<UserInterface | null> => {

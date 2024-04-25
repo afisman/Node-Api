@@ -35,8 +35,9 @@ app.use('/users', userController);
 app.use('/contact', contactController);
 
 
-app.use((error: any, _req: Request, _res: Response, _next: NextFunction): any => {
-    throw new AppError({ status: error.status || 500, message: error.status ? error.message : "Internal server error" });
+app.use((error: any, _req: Request, res: Response, _next: NextFunction): any => {
+    return res.json({ status: error.status || 500, message: error.status ? error.message : "Internal server error" });
+    // throw new AppError({ status: error.status || 500, message: error.status ? error.message : "Internal server error" });
 })
 
 
