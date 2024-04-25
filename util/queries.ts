@@ -9,7 +9,6 @@ export const sqlQuery = async (
 ): Promise<any> => {
     const connection = await sqlConnect();
     const preparedConnection = await connection.prepare(sqlQuery);
-    console.log(params)
     const [results] = await preparedConnection.execute(params);
     preparedConnection.close();
     connection.unprepare(sqlQuery);

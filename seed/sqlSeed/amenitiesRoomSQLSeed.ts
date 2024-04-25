@@ -21,7 +21,6 @@ export async function amenitiesRoomSQLSeed(currentConnection: PoolConnection) {
 
             for (let j = 0; j < arr.length; j++) {
                 amQuery += `("${rooms[i]}", "${arr[j]}"), \n`
-
             }
             query += amQuery
         }
