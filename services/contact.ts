@@ -11,7 +11,6 @@ export const fetchAllContacts = async (): Promise<ContactInterface[]> => {
     // return contacts;
     const contacts = await sqlQuery(`
     SELECT * from contact;`);
-    console.log(contacts);
     return contacts
 }
 
@@ -44,7 +43,6 @@ export const createContact = async (data: ContactInterface): Promise<ContactInte
         Number(data.rating),
         Boolean(data.is_read)
     ]);
-    console.log(contact);
     return contact;
     // const contact = await Contact.create(data);
     // if (contact === null) {
@@ -72,7 +70,6 @@ export const editContact = async (id: any, data: ContactInterface): Promise<Cont
     `,
         [...values, id]);
 
-    console.log(updateContact);
 
     return updateContact.affectedRows !== 0 ? updateContact : null;
 }
@@ -85,8 +82,6 @@ export const deleteContact = async (id: any): Promise<ContactInterface | null> =
         WHERE _id=?`,
         [id]
     );
-
-    console.log(deleteContact)
 
     return deleteContact.affectedRows !== 0 ? deleteContact : null;
 

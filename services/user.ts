@@ -8,8 +8,7 @@ import { sqlQuery } from '../util/queries';
 export const fetchAllUsers = async (): Promise<UserInterface[]> => {
     const users = await sqlQuery(`
     SELECT * from employee;`);
-    console.log(users);
-    return users
+    return users;
 
     // const users = await User.find();
     // if (users === null) {
@@ -38,7 +37,7 @@ export const createUser = async (data: UserInterface): Promise<UserInterface | n
     WHERE email = ${data.email};
     `)
 
-    let user
+    let user;
 
     if (!userExists) {
         const rawPassword = data.password;
@@ -85,7 +84,7 @@ export const editUser = async (id: any, data: UserInterface): Promise<UserInterf
     if (userExists === null) {
         throw new AppError({ status: 404, message: "User not found" });
     }
-    let user
+    let user;
     if (userExists && !compareHash(data.password, userExists.password) && data.password != '') {
         const hashedPassword = hashPassword(data.password)
         values.pop()
@@ -100,7 +99,7 @@ export const editUser = async (id: any, data: UserInterface): Promise<UserInterf
     `, [...values, id])
     }
 
-    return user
+    return user;
 
     // const userExists = await User.findById(id);
 

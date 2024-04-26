@@ -2,10 +2,36 @@
 import { AppError } from '../class/AppError';
 import { Room, RoomInterface } from '../interfaces/Room';
 import { sqlQuery } from '../util/queries';
-import { findAllRoomsQuery, findOneRoomQuery } from '../util/queryArgs';
 
 export const fetchAllRooms = async (): Promise<RoomInterface[]> => {
-    const rooms = await sqlQuery(findAllRoomsQuery);
+    const rooms = await sqlQuery(`
+        SELECT
+            room._id,
+            room.room_type,
+            room.room_number,
+            room.description,
+            room.offer,
+            room.room_floor,
+            room.rate,
+            room.discount,
+            room.status,
+            COALESCE(amenities.amenities, '[]') AS amenities,
+            COALESCE(photos.photos, '[]') AS photos
+            FROM room
+		LEFT JOIN (
+        SELECT
+            room_amenity.room_id,
+            JSON_ARRAYAGG(amenity.name) AS amenities
+        FROM room_amenity
+        LEFT JOIN amenity ON amenity._id = room_amenity.amenity_id
+            GROUP BY room_amenity.room_id
+            ) AS amenities ON amenities.room_id = room._id
+        LEFT JOIN (
+            SELECT photo.room_id,
+                JSON_ARRAYAGG(photo.url) AS photos
+            FROM photo
+            GROUP BY photo.room_id
+        ) AS photos ON photos.room_id = room._id;`);
     return rooms;
     // const rooms = await Room.find();
     // if (rooms === null) {
@@ -15,7 +41,36 @@ export const fetchAllRooms = async (): Promise<RoomInterface[]> => {
 }
 
 export const fetchSingleRoom = async (id: any): Promise<RoomInterface | null> => {
-    const room = await sqlQuery(findOneRoomQuery, [id]);
+    const room = await sqlQuery(`
+        SELECT
+            room._id,
+            room.room_type,
+            room.room_number,
+            room.description,
+            room.offer,
+            room.room_floor,
+            room.rate,
+            room.discount,
+            room.status,
+            COALESCE(amenities.amenities, '[]') AS amenities,
+            COALESCE(photos.photos, '[]') AS photos
+            FROM room
+		LEFT JOIN (
+        SELECT
+            room_amenity.room_id,
+            JSON_ARRAYAGG(amenity.name) AS amenities
+        FROM room_amenity
+        LEFT JOIN amenity ON amenity._id = room_amenity.amenity_id
+            GROUP BY room_amenity.room_id
+            ) AS amenities ON amenities.room_id = room._id
+        LEFT JOIN (
+            SELECT photo.room_id,
+                JSON_ARRAYAGG(photo.url) AS photos
+            FROM photo
+            GROUP BY photo.room_id
+        ) AS photos ON photos.room_id = room._id
+        WHERE room._id = ?
+        ;`, [id]);
     return room;
     // const room = await Room.findById(id);
     // if (room === null) {
@@ -40,6 +95,34 @@ export const createRoom = async (data: RoomInterface): Promise<RoomInterface> =>
         Number(data.discount),
         data.status
     ]);
+
+    const roomId = createRoom.insertId;
+
+    const amenities: any[] = await sqlQuery("SELECT * FROM amenity");
+    let amenitiesQuery = `INSERT INTO room_amenity (room_id, amenity_id) VALUES  `
+    const amenitiesFromForm = [...data.amenities].join("").split(", ")
+    for (let i = 0; i < amenitiesFromForm.length; i++) {
+        let amId = amenities.find(amenity => amenity.name === amenitiesFromForm[i])._id;
+        if (i !== amenitiesFromForm.length - 1) {
+            amenitiesQuery += `("${roomId}", "${amId}"), \n`;
+        } else {
+            amenitiesQuery += `("${roomId}", "${amId}"); \n`;
+        }
+    }
+    const addAmenities = await sqlQuery(amenitiesQuery);
+
+    const photosFromForm = [...data.photos].join("").split(", ");
+    let photoQuery = `INSERT INTO photo (url, room_id) VALUES `;
+
+    for (let i = 0; i < photosFromForm.length; i++) {
+        if (i !== photosFromForm.length - 1) {
+            photoQuery += `("${photosFromForm[i]}", "${roomId}"), \n`;
+        } else {
+            photoQuery += `("${photosFromForm[i]}", "${roomId}"); \n`;
+        }
+    }
+
+    const addPhotos = await sqlQuery(photoQuery);
 
 
     return createRoom;
