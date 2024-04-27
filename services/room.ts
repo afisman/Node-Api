@@ -100,7 +100,7 @@ export const createRoom = async (data: RoomInterface): Promise<RoomInterface> =>
 
     const amenities: any[] = await sqlQuery("SELECT * FROM amenity");
     let amenitiesQuery = `INSERT INTO room_amenity (room_id, amenity_id) VALUES  `
-    const amenitiesFromForm = [...data.amenities].join("").split(", ")
+    const amenitiesFromForm = data.amenities;
     for (let i = 0; i < amenitiesFromForm.length; i++) {
         let amId = amenities.find(amenity => amenity.name === amenitiesFromForm[i])._id;
         if (i !== amenitiesFromForm.length - 1) {
@@ -111,7 +111,7 @@ export const createRoom = async (data: RoomInterface): Promise<RoomInterface> =>
     }
     const addAmenities = await sqlQuery(amenitiesQuery);
 
-    const photosFromForm = [...data.photos].join("").split(", ");
+    const photosFromForm = data.photos;
     let photoQuery = `INSERT INTO photo (url, room_id) VALUES `;
 
     for (let i = 0; i < photosFromForm.length; i++) {
@@ -139,14 +139,13 @@ export const editRoom = async (id: any, data: RoomInterface): Promise<RoomInterf
     const values: any[] = [];
 
     for (let property in data) {
-        keys.push(property);
+        if (property !== 'amenities' && property !== 'photos') { keys.push(property); }
         if (property === 'discount' || property === 'rate') {
             values.push(Number(data[property]));
-        } else {
+        } else if (property !== 'amenities' && property !== 'photos') {
             values.push(data[property as keyof RoomInterface]);
         }
     }
-
     const updateColumn: string = keys
         .map((key: string) => `${key} = ?`)
         .join(", ");
@@ -159,6 +158,42 @@ export const editRoom = async (id: any, data: RoomInterface): Promise<RoomInterf
     `,
         [...values, id]
     );
+
+    const deletePhotosFromRoom = await sqlQuery(`
+        DELETE FROM photo
+        WHERE room_id = ?
+    `, [id]);
+
+    const photosFromForm = data.photos;
+    let photoQuery = `INSERT INTO photo (url, room_id) VALUES `;
+
+    for (let i = 0; i < photosFromForm.length; i++) {
+        if (i !== photosFromForm.length - 1) {
+            photoQuery += `("${photosFromForm[i]}", "${id}"), \n`;
+        } else {
+            photoQuery += `("${photosFromForm[i]}", "${id}"); \n`;
+        }
+    }
+
+    const addPhotos = await sqlQuery(photoQuery);
+
+    const deleteAmenitiesFromRoom = await sqlQuery(`
+    DELETE FROM amenity_room
+    WHERE room_id = ?
+    `, [id]);
+
+    const amenities: any[] = await sqlQuery("SELECT * FROM amenity");
+    let amenitiesQuery = `INSERT INTO room_amenity (room_id, amenity_id) VALUES  `
+    const amenitiesFromForm = data.amenities;
+    for (let i = 0; i < amenitiesFromForm.length; i++) {
+        let amId = amenities.find(amenity => amenity.name === amenitiesFromForm[i])._id;
+        if (i !== amenitiesFromForm.length - 1) {
+            amenitiesQuery += `("${id}", "${amId}"), \n`;
+        } else {
+            amenitiesQuery += `("${id}", "${amId}"); \n`;
+        }
+    }
+    const addAmenities = await sqlQuery(amenitiesQuery);
 
     return updateRoom;
 
