@@ -159,6 +159,7 @@ export const editRoom = async (id: any, data: RoomInterface): Promise<RoomInterf
         [...values, id]
     );
 
+
     const deletePhotosFromRoom = await sqlQuery(`
         DELETE FROM photo
         WHERE room_id = ?
@@ -175,12 +176,14 @@ export const editRoom = async (id: any, data: RoomInterface): Promise<RoomInterf
         }
     }
 
+
     const addPhotos = await sqlQuery(photoQuery);
 
     const deleteAmenitiesFromRoom = await sqlQuery(`
-    DELETE FROM amenity_room
+    DELETE FROM room_amenity
     WHERE room_id = ?
     `, [id]);
+
 
     const amenities: any[] = await sqlQuery("SELECT * FROM amenity");
     let amenitiesQuery = `INSERT INTO room_amenity (room_id, amenity_id) VALUES  `
@@ -193,6 +196,7 @@ export const editRoom = async (id: any, data: RoomInterface): Promise<RoomInterf
             amenitiesQuery += `("${id}", "${amId}"); \n`;
         }
     }
+
     const addAmenities = await sqlQuery(amenitiesQuery);
 
     return updateRoom;
