@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createRoom, deleteRoom, editRoom, fetchAllRooms, fetchSingleRoom } from '../services/room';
+import { validateRoom } from '../validators/roomValidator';
 
 export const roomController = express.Router();
 
@@ -22,7 +23,7 @@ roomController.get("/:id", async (req: Request, res: Response, next: NextFunctio
     }
 })
 
-roomController.post("/", async (req: Request, res: Response, next: NextFunction) => {
+roomController.post("/", validateRoom, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const newRoom = await createRoom(req.body);
         res.json(newRoom);
@@ -31,7 +32,7 @@ roomController.post("/", async (req: Request, res: Response, next: NextFunction)
     }
 })
 
-roomController.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
+roomController.put("/:id", validateRoom, async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     try {
         const roomToEdit = await editRoom(id, req.body)

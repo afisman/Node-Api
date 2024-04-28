@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createBooking, deleteBooking, editBooking, fetchAllBookings, fetchSingleBooking } from '../services/booking';
+import { validateBooking } from '../validators/bookingValidator';
 
 export const bookingController = express.Router();
 
@@ -22,7 +23,7 @@ bookingController.get("/:id", async (req: Request, res: Response, next: NextFunc
     }
 })
 
-bookingController.post("/", async (req: Request, res: Response, next: NextFunction) => {
+bookingController.post("/", validateBooking, async (req: Request, res: Response, next: NextFunction) => {
 
     try {
         const newBooking = await createBooking(req.body);
@@ -32,7 +33,7 @@ bookingController.post("/", async (req: Request, res: Response, next: NextFuncti
     }
 })
 
-bookingController.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
+bookingController.put("/:id", validateBooking, async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     try {
         const bookingToEdit = await editBooking(id, req.body);

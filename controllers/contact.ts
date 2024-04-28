@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createContact, deleteContact, editContact, fetchAllContacts, fetchSingleContact } from '../services/contact';
+import { validateContact } from '../validators/contactValidator';
 
 export const contactController = express.Router();
 
@@ -22,7 +23,7 @@ contactController.get("/:id", async (req: Request, res: Response, next: NextFunc
     }
 })
 
-contactController.post("/", async (req: Request, res: Response, next: NextFunction) => {
+contactController.post("/", validateContact, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const newContact = await createContact(req.body)
         res.json(newContact);
@@ -31,7 +32,7 @@ contactController.post("/", async (req: Request, res: Response, next: NextFuncti
     }
 })
 
-contactController.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
+contactController.put("/:id", validateContact, async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     try {
         const contactToEdit = await editContact(id, req.body)
