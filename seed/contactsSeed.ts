@@ -18,6 +18,7 @@ export const contactsSeedDB = async () => {
                 phone: faker.phone.number(),
                 date: faker.date.past({ years: 1, refDate: '2024-04-01' }),
                 message: faker.lorem.paragraphs(2),
+                subject: faker.lorem.words(2),
                 rating: faker.number.int({ min: 1, max: 5 }),
                 read: false
             })

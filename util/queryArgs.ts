@@ -116,6 +116,7 @@ CREATE TABLE IF NOT EXISTS contact (
     phone VARCHAR(255) NOT NULL,
     date TIMESTAMP default CURRENT_TIMESTAMP NOT NULL,
     message VARCHAR(500) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
     rating INT NOT NULL,
     is_read BOOLEAN NOT NULL,
     PRIMARY KEY (_id)

@@ -17,11 +17,12 @@ export async function userSQLSeed(currentConnection: PoolConnection) {
 
             const rawPassword = faker.internet.password({ length: 10, memorable: true });
             const hashedPassword = hashPassword(rawPassword);
+            const email = faker.internet.email()
 
             query += `(
                 "${faker.person.fullName()}",
                 "${faker.phone.number().toString()}",
-                "${faker.internet.email()}",
+                "${email}",
                 "${faker.image.avatar()}",
                 "${faker.date.past({ years: 10, refDate: '2024-04-01' }).toISOString().slice(0, 19)}",
                 "${faker.lorem.paragraph(2)}",
@@ -34,8 +35,8 @@ export async function userSQLSeed(currentConnection: PoolConnection) {
             } else {
                 query += "; \n";
             }
+            console.log(email, rawPassword);
         }
-        console.log(query);
         await currentConnection.query(query);
     } catch (error) {
         console.error(error);

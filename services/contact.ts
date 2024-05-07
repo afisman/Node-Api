@@ -31,8 +31,8 @@ export const fetchSingleContact = async (id: any): Promise<ContactInterface | nu
 export const createContact = async (data: ContactInterface): Promise<ContactInterface | null> => {
     const contact = await sqlQuery(`
     INSERT INTO contact 
-            (image, full_name, email, phone, date, message, rating, is_read)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            (image, full_name, email, phone, date, message, subject, rating, is_read)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `, [
         data.image,
         data.full_name,
