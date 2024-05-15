@@ -5,24 +5,15 @@ import { sqlQuery } from "../util/queries";
 
 
 export const login = async (userLogin: any) => {
-    const hashedPassword = hashPassword(userLogin.password);
-    const user = await sqlQuery(`
-        SELECT _id, full_name, email_ photo
-        FROM employee
-        WHERE email=? AND password = ?
-    `, [userLogin.email, hashedPassword]);
+    const user = await User.findOne({ email: userLogin.email })
+    if (!user) {
+        throw new AppError({ status: 404, message: 'User could not be found' })
 
-    return user;
-
-    // const user = await User.findOne({ email: userLogin.email })
-    // if (!user) {
-    //     throw new AppError({ status: 404, message: 'User could not be found' })
-
-    // }
-    // const isAuth = compareHash(userLogin.password, user?.password)
-    // if (isAuth) {
-    //     return user
-    // } else {
-    //     throw new AppError({ status: 403, message: 'User is not authenticated' })
-    // }
+    }
+    const isAuth = compareHash(userLogin.password, user?.password)
+    if (isAuth) {
+        return user
+    } else {
+        throw new AppError({ status: 403, message: 'User is not authenticated' })
+    }
 }
