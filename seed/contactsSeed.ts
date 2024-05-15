@@ -20,7 +20,7 @@ export const contactsSeedDB = async () => {
                 message: faker.lorem.paragraphs(2),
                 subject: faker.lorem.words(2),
                 rating: faker.number.int({ min: 1, max: 5 }),
-                read: false
+                is_read: false
             })
             await document.save();
         }

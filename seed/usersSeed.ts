@@ -18,7 +18,7 @@ export const usersSeedDB = async () => {
                 photo: faker.image.avatar(),
                 start_date: faker.date.past({ years: 10, refDate: '2024-04-01' }),
                 description: faker.lorem.paragraph(2),
-                status: true,
+                status: faker.helpers.arrayElement(["Active", "Inactive"]),
                 position: faker.helpers.arrayElement(["Manager", "Reception", "Room Service"]),
                 password: hashedPassword
             })

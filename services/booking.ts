@@ -106,7 +106,6 @@ LEFT JOIN room ON room._id = booking.room
 }
 
 export const createBooking = async (data: BookingInterface): Promise<BookingInterface> => {
-    console.log(data)
     const createBooking = await sqlQuery(`
     INSERT INTO booking
         (name, order_date, check_in, check_out, hour_check_in, hour_check_out, discount, special_request, status, room)
@@ -132,8 +131,6 @@ export const createBooking = async (data: BookingInterface): Promise<BookingInte
 }
 
 export const editBooking = async (id: any, data: BookingInterface): Promise<BookingInterface | null> => {
-    console.log()
-
     const keys: string[] = [];
     const values: any[] = [];
 
