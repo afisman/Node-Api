@@ -3,7 +3,6 @@ import { AppError } from '../class/AppError';
 import { Booking, BookingInterface } from '../interfaces/Booking';
 import { sqlQuery } from '../util/queries';
 
-
 export const fetchAllBookings = async (): Promise<BookingInterface[]> => {
     const bookings = await Booking.find().populate('room');
     if (bookings === null) {
