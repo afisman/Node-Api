@@ -1,5 +1,5 @@
 
-import { AppError } from '../class/AppError';
+import { AppError } from '../Class/AppError';
 import { Booking, BookingInterface } from '../interfaces/Booking';
 import { sqlQuery } from '../util/queries';
 

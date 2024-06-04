@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { UserInterface } from "../interfaces/User";
-import { AppError } from "../class/AppError";
+import { AppError } from "../Class/AppError";
 import { NextFunction, Request, Response } from "express";
 
 const userSchema = Joi.object<UserInterface>({

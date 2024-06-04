@@ -7,7 +7,7 @@ import { loginController } from './controllers/login';
 import { pageController } from './controllers/page';
 import { mongoConnect } from './databaseConfig';
 import { authenticateToken } from './middleware/auth';
-import { AppError } from './class/AppError';
+import { AppError } from './Class/AppError';
 import cors from 'cors';
 
 export const app: Express = express();

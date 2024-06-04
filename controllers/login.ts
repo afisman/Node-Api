@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { login } from '../services/login';
-import { AppError } from '../class/AppError';
+import { AppError } from '../Class/AppError';
 import { generateAccessToken } from '../util/generateAccessToken';
 
 

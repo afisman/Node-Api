@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 
-
 export interface ContactInterface {
     image: string;
     full_name: string;

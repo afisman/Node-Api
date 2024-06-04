@@ -1,5 +1,5 @@
 
-import { AppError } from '../class/AppError';
+import { AppError } from '../Class/AppError';
 import { Room, RoomInterface } from '../interfaces/Room';
 import { sqlQuery } from '../util/queries';
 

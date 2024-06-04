@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { BookingInterface } from "../interfaces/Booking";
-import { AppError } from "../class/AppError";
+import { AppError } from "../Class/AppError";
 import { NextFunction, Request, Response } from "express";
 
 

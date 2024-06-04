@@ -1,5 +1,5 @@
 
-import { AppError } from '../class/AppError';
+import { AppError } from '../Class/AppError';
 import { Contact, ContactInterface } from '../interfaces/Contact';
 import { sqlQuery } from '../util/queries';
 

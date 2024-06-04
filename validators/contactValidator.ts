@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { ContactInterface } from "../interfaces/Contact";
-import { AppError } from "../class/AppError";
+import { AppError } from "../Class/AppError";
 import { NextFunction, Request, Response } from "express";
 
 const contactScheme = Joi.object<ContactInterface>({

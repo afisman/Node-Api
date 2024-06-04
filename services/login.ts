@@ -1,4 +1,4 @@
-import { AppError } from "../class/AppError";
+import { AppError } from "../Class/AppError";
 import { User } from "../interfaces/User";
 import { compareHash, hashPassword } from "../util/bcryptUtil";
 import { sqlQuery } from "../util/queries";
