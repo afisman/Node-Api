@@ -15,13 +15,21 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors({
+const corsOptions = {
     origin: [
         'http://localhost:3000',
         'http://localhost:5173',
-        'http://miranda-dashboard-afsmn.s3-website.eu-west-3.amazonaws.com'],
-}));
-app.options('*', cors())
+        'http://miranda-dashboard-afsmn.s3-website.eu-west-3.amazonaws.com'
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization',
+    credentials: true
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
 
 mongoConnect();
 
