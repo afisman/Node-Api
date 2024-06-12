@@ -20,9 +20,8 @@ app.use(cors({
         'http://localhost:3000',
         'http://localhost:5173',
         'http://miranda-dashboard-afsmn.s3-website.eu-west-3.amazonaws.com'],
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,            //access-control-allow-credentials:true
 }));
+app.options('*', cors())
 
 mongoConnect();
 
