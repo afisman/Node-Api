@@ -19,7 +19,8 @@ app.use(cors({
     origin: [
         'http://localhost:3000',
         'http://localhost:5173',
-        'http://miranda-dashboard-afsmn.s3-website.eu-west-3.amazonaws.com']
+        'http://miranda-dashboard-afsmn.s3-website.eu-west-3.amazonaws.com'],
+    credentials: true,            //access-control-allow-credentials:true
 }));
 
 mongoConnect();
