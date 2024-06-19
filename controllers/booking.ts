@@ -39,7 +39,6 @@ bookingController.put("/:id", validateBooking, async (req: Request, res: Respons
         const bookingToEdit = await editBooking(id, req.body);
         res.json(bookingToEdit);
     } catch (error) {
-        console.log(error)
         next(error);
     }
 

@@ -45,8 +45,8 @@ export const editUser = async (id: any, data: UserInterface): Promise<UserInterf
     }
 
     if (userExists && !compareHash(data.password, userExists.password) && data.password != '') {
-        const hashedPassword = hashPassword(data.password)
-        return await User.findByIdAndUpdate(id, { ...data, password: hashedPassword }, { new: true })
+        const hashedPassword = hashPassword(data.password);
+        return await User.findByIdAndUpdate(id, { ...data, password: hashedPassword }, { new: true });
     } else {
         return await User.findByIdAndUpdate(id, { ...data, password: userExists.password }, { new: true });
     }
