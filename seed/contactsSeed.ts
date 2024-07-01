@@ -1,7 +1,4 @@
-import mongoose from "mongoose";
 import { faker } from '@faker-js/faker';
-
-import { mongoConnect } from "../databaseConfig";
 import { Contact } from "../interfaces/Contact";
 
 export const contactsSeedDB = async () => {

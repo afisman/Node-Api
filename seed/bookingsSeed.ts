@@ -1,7 +1,5 @@
-import mongoose from "mongoose";
 import { faker } from '@faker-js/faker';
 import { Booking } from "../interfaces/Booking";
-import { mongoConnect } from "../databaseConfig";
 import { Room } from "../interfaces/Room";
 
 
